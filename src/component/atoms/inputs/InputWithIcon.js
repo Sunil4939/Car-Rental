@@ -91,6 +91,8 @@ const styles = StyleSheet.create({
     },
 
     icon: {
+        // width: SIZES.width * .1,
+        // alignItems: 'center',
         borderRightWidth: 1,
         borderRightColor: COLORS.light1,
         paddingHorizontal: SIZES.width * .03,

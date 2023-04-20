@@ -13,11 +13,12 @@ import Button1 from '../../component/atoms/buttons/Button1'
 import { BottomSheet } from 'react-native-btr'
 import { StoreCarBookingApi } from '../../redux/actions/productAction'
 import filterImageObjectToArray from '../../services/filterImageObjectToArray'
+import { CreatePaymentApi, CreateSessionId } from '../../redux/actions/bookingAction'
 
 
 
 
-const CheckOut = ({ navigation, route, loading, userData, StoreCarBookingApi }) => {
+const CheckOut = ({ navigation, route, loading, userData,CreateSessionId, StoreCarBookingApi }) => {
 
   // const slider = [images.car1, images.car2, images.car3, images.car4]
   const slider = filterImageObjectToArray(route.params.carData.image)
@@ -30,6 +31,8 @@ const CheckOut = ({ navigation, route, loading, userData, StoreCarBookingApi }) 
     "contact": null,
     "name": userData.name,
   }
+
+  
 
   const [visible, setVisible] = useState(false)
 
@@ -267,15 +270,15 @@ const CheckOut = ({ navigation, route, loading, userData, StoreCarBookingApi }) 
                         </View>
                         <View style={styles.totalBtn}>
                           <Text style={styles.totalBtnText}>Total</Text>
-                          <Text style={styles.totalBtnText}>{data.currency.symbol + data.price}</Text>
+                          <Text style={styles.totalBtnText}>{data.currency.symbol + (Number(data.price) + Number(data.additional_price))}</Text>
                         </View>
 
 
                         <Button1 style={styles.btn}
                           backgroundColor={COLORS.black} textColor={COLORS.white}
-                          onPress={() => { setVisible(!visible), StoreCarBookingApi(postData,data.currency.short_code, userDetails, navigation) }}
+                          // onPress={() => { setVisible(!visible), StoreCarBookingApi(postData,data.currency.short_code, userDetails, navigation) }}
                         // onPress={() => { setVisible(!visible), navigation.navigate("ApprovedDrive") }}
-                        // onPress={() => { setVisible(!visible), handleRazorpay()}}
+                        onPress={() => { setVisible(!visible), CreateSessionId(postData, {amount: (Number(data.price) + Number(data.additional_price))}, navigation)}}
                         >
                           Process To Check Out
                         </Button1>
@@ -302,6 +305,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   StoreCarBookingApi,
+  CreateSessionId,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckOut)

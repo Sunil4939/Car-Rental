@@ -31,14 +31,15 @@ const CarProfile = ({ navigation, route, }) => {
 
     const handleSubmit = () => {
         console.log("post data : ", postData)
-        if (postData.profile_image) {
-            navigation.navigate("DriverLicense", { data: postData })
-        } else {
-            RNToasty.Error({
-                title: "Please select profile image",
-                duration: 2
-            })
-        }
+        navigation.navigate("DriverLicense", { data: postData })
+        // if (postData.profile_image) {
+        //     navigation.navigate("DriverLicense", { data: postData })
+        // } else {
+        //     RNToasty.Error({
+        //         title: "Please select profile image",
+        //         duration: 2
+        //     })
+        // }
     }
 
     const selectProfile = async () => {
@@ -112,7 +113,6 @@ const CarProfile = ({ navigation, route, }) => {
                     </View>
                 </View>
             </View>
-
         </View>
     )
 }

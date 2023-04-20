@@ -31,6 +31,9 @@ import SearchScreen from '../../screens/searchScreen';
 import CheckOut from '../../screens/checkOut';
 import ApprovedDrive from '../../screens/approvedDrive';
 import HomePage from '../../screens/homePage';
+import EditHostProfile from '../../screens/editHostProfile'
+import StripePayment from '../../screens/StripePayment';
+import AddCarList from '../../screens/AddCarList';
 
 
 const Stack = createStackNavigator();
@@ -71,7 +74,7 @@ const HomeStack = ({ navigation, route }) => {
         options={() => ({
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         })} />
-          <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
     </Stack.Navigator>
   );
 }
@@ -87,7 +90,7 @@ const LocationStack = ({ navigation, route }) => {
         headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       })} >
-          <Stack.Screen name="Location" component={Location} />
+      <Stack.Screen name="Location" component={Location} />
       <Stack.Screen name="SearchPage" component={SearchPage} />
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
       <Stack.Screen name="Product" component={Product} />
@@ -97,7 +100,7 @@ const LocationStack = ({ navigation, route }) => {
         options={() => ({
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         })} />
-          <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
     </Stack.Navigator>
   );
 }
@@ -124,10 +127,55 @@ const SearchStack = ({ navigation, route }) => {
         options={() => ({
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         })} />
-          <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="StripePayment" component={StripePayment} />
     </Stack.Navigator>
   );
 }
+
+const AddCarStack = ({ navigation, route }) => {
+
+  useEffect(() => {
+    bottomBarCondition(navigation, route, "AddCarList")
+  }, [route])
+  return (
+    <Stack.Navigator
+      // initialRouteName='SubmitList'
+      screenOptions={() => ({
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      })} >
+      <Stack.Screen name="AddCarList" component={AddCarList} />
+      <Stack.Screen name="Location" component={Location} />
+      <Stack.Screen name="ChooseTrip" component={ChooseTrip} />
+
+      <Stack.Screen name="Terms" component={Terms} />
+      <Stack.Screen name="YourCar" component={YourCar} />
+      <Stack.Screen name="CarProfile" component={CarProfile} />
+      <Stack.Screen name="Goals" component={Goals} />
+      <Stack.Screen name="CarDetails" component={CarDetails} />
+      <Stack.Screen name="CarPhotos" component={CarPhotos} />
+      <Stack.Screen name="PayoutStripe" component={PayoutStripe} />
+      <Stack.Screen name="DriverLicense" component={DriverLicense} />
+      <Stack.Screen name="CarAvailability" component={CarAvailability} />
+      <Stack.Screen name="SetUpAccount" component={SetUpAccount} />
+      <Stack.Screen name="Quality" component={Quality} />
+      <Stack.Screen name="SubmitList" component={SubmitList} />
+
+      <Stack.Screen name="Product" component={Product} />
+      <Stack.Screen name="CheckOut" component={CheckOut} />
+      <Stack.Screen name="ApprovedDrive" component={ApprovedDrive} />
+      <Stack.Screen name="ProductDetails" component={ProductDetails}
+        options={() => ({
+          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+        })} />
+      <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+    </Stack.Navigator>
+  );
+}
+
 
 const FavoriteStack = ({ navigation, route }) => {
 
@@ -136,7 +184,7 @@ const FavoriteStack = ({ navigation, route }) => {
   }, [route])
   return (
     <Stack.Navigator
-      // initialRouteName='Product'
+      // initialRouteName='SubmitList'
       screenOptions={() => ({
         headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -165,6 +213,8 @@ const FavoriteStack = ({ navigation, route }) => {
         options={() => ({
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         })} />
+      <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
     </Stack.Navigator>
   );
 }
@@ -187,6 +237,9 @@ const TripStack = ({ navigation, route }) => {
         options={() => ({
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         })} />
+      <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="StripePayment" component={StripePayment} />
+      <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
     </Stack.Navigator>
   );
 }
@@ -222,6 +275,7 @@ const MoreStack = ({ navigation, route }) => {
       })} >
       <Stack.Screen name="MorePage" component={MorePage} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="EditHostProfile" component={EditHostProfile} />
     </Stack.Navigator>
   );
 }
@@ -234,4 +288,5 @@ export {
   MoreStack,
   HomeStack,
   LocationStack,
+  AddCarStack,
 }

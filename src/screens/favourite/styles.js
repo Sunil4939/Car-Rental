@@ -8,6 +8,11 @@ export default StyleSheet.create({
         alignItems: "center",
     },
 
+    listContainer: {
+        width: SIZES.width,
+        backgroundColor: 'white',
+    },
+
     titleBox: {
         alignItems: "center",
         borderBottomWidth: 1,

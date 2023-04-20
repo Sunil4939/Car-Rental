@@ -56,6 +56,7 @@ const MorePage = ({ LogoutApi, navigation, userData, token, GetUserDataApi }) =>
             <View style={{ marginVertical: SIZES.height * .02 }}>
                 <NavigateButton iconName={"account"}
                     iconStyle={styles.account}
+                    onPress={() => navigation.navigate("EditHostProfile")}
                 >
                     Account
                 </NavigateButton>
@@ -66,7 +67,9 @@ const MorePage = ({ LogoutApi, navigation, userData, token, GetUserDataApi }) =>
                     </NavigateButton>
                 }
                 <NavigateButton iconName={"contact"}
-                    iconStyle={styles.account}>
+                    iconStyle={styles.account}
+                    onPress={() => navigation.navigate("EditProfile")}
+                    >
                     Contact Support
                 </NavigateButton>
                 <NavigateButton iconName={"legal"}

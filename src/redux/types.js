@@ -28,6 +28,11 @@ export const SINGLE_CAR_DATA = "SINGLE_CAR_DATA"
 
 // booking
 export const BOOKING_DATA = "BOOKING_DATA"
+export const SESSION_ID = "SESSION_ID"
 
 // home
 export const All_CAR_LIST = "All_CAR_LIST"
+
+// payment
+export const PAYMENT_INTENT = "PAYMENT_INTENT"
+export const CUSTOMER_DATA = "CUSTOMER_DATA"

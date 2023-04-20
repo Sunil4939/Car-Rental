@@ -31,7 +31,7 @@ import { GetUserDataApi } from '../redux/actions/authAction';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const Root = ({ token, GetUserDataApi }) => {
+const Root = ({ token, userData, GetUserDataApi, }) => {
 
     const [rootLoading, setRootLoading] = useState(true)
     const dispatch = useDispatch()
@@ -48,7 +48,6 @@ const Root = ({ token, GetUserDataApi }) => {
             } else {
                 setRootLoading(false)
             }
-
         })
             .catch(err => console.log("Root error : ", err))
 
@@ -65,22 +64,20 @@ const Root = ({ token, GetUserDataApi }) => {
             {rootLoading ?
                 <Loading />
                 :
-
                 <Stack.Navigator
                     initialRouteName='BottomTab'
                     screenOptions={() => ({
                         headerShown: false,
                         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
                     })}>
+                        <Stack.Screen
+                        name="BottomTab"
+                        component={BottomTab}
+                    />
                     <Stack.Screen name="Auth" component={Auth} />
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="SignUp" component={SignUp} />
                     <Stack.Screen name="ResetPassword" component={ResetPassword} />
-
-                    <Stack.Screen
-                        name="BottomTab"
-                        component={BottomTab}
-                    />
                 </Stack.Navigator>
             }
         </>
@@ -88,6 +85,7 @@ const Root = ({ token, GetUserDataApi }) => {
 }
 const mapStateToProps = (state) => ({
     token: state.auth.token,
+    userData: state.auth.userData,
 })
 
 const mapDispatchToProps = {

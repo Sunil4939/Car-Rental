@@ -16,6 +16,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 import SwitchToggle from 'react-native-switch-toggle'
 import { BottomSheet } from 'react-native-btr'
 import filterImageObjectToArray from '../../services/filterImageObjectToArray'
+import { RNToasty } from 'react-native-toasty'
 
 
 
@@ -144,15 +145,17 @@ const SelectTrip = ({ style, placeholderDate, label, placeholderTime, onChangeDa
   )
 }
 
-const ProductDetails = ({ navigation, route, loading }) => {
+const ProductDetails = ({ navigation, route,token, loading }) => {
   const singleCarData = route.params && route.params.carData;
   // let slider = [images.car1, images.car2, images.car3, images.car4]
   let sliderImages = filterImageObjectToArray(singleCarData.image);
-  
-  //  console.log("slider images : ", sliderImages);
-   
 
-  const [visible, setVisible] = useState(false)
+   console.log("singleCarData : ", singleCarData);
+  const data = route.params.carData && route.params.carData.location
+
+
+  const [visible, setVisible] = useState(false) 
+  const [checkout, setCheckout] = useState(false)
 
   let d = new Date()
   let time = formatAMPM(d)
@@ -160,7 +163,7 @@ const ProductDetails = ({ navigation, route, loading }) => {
   let date = String(d.getDate()).length == 1 ? `0${d.getDate()}` : `${d.getDate()}`
   date = `${date}-${month}-${d.getFullYear()}`
 
-  // console.log("single car data : ", singleCarData.seat)
+  // console.log("single car data : ", data.location)
 
 
   const [postData, setPostData] = useState({
@@ -175,6 +178,17 @@ const ProductDetails = ({ navigation, route, loading }) => {
       ...postData,
       [name]: value,
     })
+  }
+
+  const handleCarBook = () => {
+    if(token){
+      setCheckout(!checkout)
+    }else{
+      RNToasty.Normal({
+        title: 'Please Login first',
+        duration: 2
+      })
+    }
   }
   return (
     <>
@@ -272,7 +286,9 @@ const ProductDetails = ({ navigation, route, loading }) => {
                 {/* description */}
                 <View style={styles.descriptionBox}>
                   <Text style={styles.title}>Description</Text>
-                  <Text style={styles.text}>{singleCarData.description.length > 100 ? singleCarData.description.slice(0, 100) + "..." : singleCarData.description}</Text>
+                  {singleCarData.description &&
+                    <Text style={styles.text}>{singleCarData.description.length > 100 ? singleCarData.description.slice(0, 100) + "..." : singleCarData.description}</Text>
+                  }
                   <View style={{ alignItems: 'flex-end' }}>
                     <TouchableOpacity style={styles.readMoreBtn}>
                       <Text style={styles.readMoreText}>Read More</Text>
@@ -340,7 +356,9 @@ const ProductDetails = ({ navigation, route, loading }) => {
                 {/* deluxe class */}
                 <View style={styles.descriptionBox}>
                   <Text style={styles.title}>Deluxe Class</Text>
-                  <Text style={styles.text}>{singleCarData.description.length > 100 ? singleCarData.description.slice(0, 100) + "..." : singleCarData.description}</Text>
+                  {singleCarData.description &&
+                    <Text style={styles.text}>{singleCarData.description.length > 100 ? singleCarData.description.slice(0, 100) + "..." : singleCarData.description}</Text>
+                  }
                   <View style={{ alignItems: 'flex-end' }}>
                     <TouchableOpacity style={styles.readMoreBtn}>
                       <Text style={styles.readMoreText}>Read More</Text>
@@ -508,7 +526,7 @@ const ProductDetails = ({ navigation, route, loading }) => {
                       dropdownStyle={styles.dropDown}
                       buttonStyle={styles.dropDownBtnStyle}
                       buttonTextStyle={styles.dropDownTextStyle}
-                      data={["Indore"]}
+                      data={data && [data.location]}
                       defaultValueByIndex={0}
                       onSelect={(selectedItem, index) => {
                         console.log(selectedItem, index)
@@ -543,11 +561,68 @@ const ProductDetails = ({ navigation, route, loading }) => {
                 {/* button container */}
                 <View style={styles.buttonBox}>
                   <Button1 backgroundColor={COLORS.black} textColor={COLORS.white}
-                    onPress={() => navigation.navigate("CheckOut", { data: postData, carData: singleCarData })}
+                  onPress={handleCarBook}
+                    // onPress={() => navigation.navigate("CheckOut", { data: postData, carData: singleCarData })}
                   >
                     Book Now
                   </Button1>
                 </View>
+
+                  {/* bottom sheet */}
+                  <BottomSheet
+                  visible={checkout}
+                  onBackButtonPress={() => setCheckout(!checkout)}
+                  onBackdropPress={() => setCheckout(!checkout)}
+                >
+                  <View style={styles.bottom_container}>
+                    <View style={styles.close_container}>
+                      <TouchableOpacity style={styles.closeBox}
+                        onPress={() => setCheckout(!checkout)}
+                      >
+                        <Icons name={"close"} size={20} color={COLORS.black} />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={styles.bottom_container}>
+                      <View style={styles.bottomSheet}>
+                        <View style={styles.priceBox}>
+                          <Text style={styles.price}>{data.currency.symbol + data.price}</Text>
+                        </View>
+
+                        <View style={{ ...styles.totalBtn, backgroundColor: COLORS.light, borderWidth: 0 }}>
+                          <Text style={styles.totalBtnText}>Cart Totals</Text>
+                        </View>
+
+                        <View style={styles.totalBtn}>
+                          <Text style={styles.totalBtnText}>Subtotal</Text>
+                          <Text style={styles.totalBtnText}>{data.currency.symbol + data.price}</Text>
+                        </View>
+                        <View style={styles.totalBtn}>
+                          <Text style={styles.totalBtnText}>GST</Text>
+                          <Text style={styles.totalBtnText}>{data.currency.symbol + data.additional_price}</Text>
+                        </View>
+                        <View style={styles.totalBtn}>
+                          <Text style={styles.totalBtnText}>QST</Text>
+                          <Text style={styles.totalBtnText}>{data.currency.symbol + "0"}</Text>
+                        </View>
+                        <View style={styles.totalBtn}>
+                          <Text style={styles.totalBtnText}>Total</Text>
+                          <Text style={styles.totalBtnText}>{data.currency.symbol + (Number(data.price) + Number(data.additional_price))}</Text>
+                        </View>
+
+
+                        <Button1 style={styles.btn}
+                          backgroundColor={COLORS.black} textColor={COLORS.white}
+                          // onPress={() => { setVisible(!visible), StoreCarBookingApi(postData,data.currency.short_code, userDetails, navigation) }}
+                        onPress={() => { setCheckout(!checkout)}}
+                        // onPress={() => { setVisible(!visible), CreateSessionId(postData, {amount: (Number(data.price) + Number(data.additional_price))}, navigation)}}
+                        >
+                          Process To Check Out
+                        </Button1>
+                      </View>
+                    </View>
+                  </View>
+
+                </BottomSheet>
               </View>
             </ScrollView>
           }
@@ -558,6 +633,7 @@ const ProductDetails = ({ navigation, route, loading }) => {
 }
 
 const mapStateToProps = (state) => ({
+  token: state.auth.token,
   loading: state.product.loading,
   singleCarData: state.product.singleCarData,
 })

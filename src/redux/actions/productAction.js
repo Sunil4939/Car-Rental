@@ -78,19 +78,19 @@ export const SearchFilterApi = (searchTitle) => async dispatch => {
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Success({
-                    title: "Search car data successfully",
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: "Search car data successfully",
+                //     duration: 2,
+                // });
             } else {
                 dispatch({
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
@@ -99,12 +99,12 @@ export const SearchFilterApi = (searchTitle) => async dispatch => {
                 type: LOADING,
                 payload: false,
             });
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };
@@ -142,19 +142,19 @@ export const SingleCarDataApi = (carId) => async dispatch => {
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Success({
-                    title: "Get single car data successfully",
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: "Get single car data successfully",
+                //     duration: 2,
+                // });
             } else {
                 dispatch({
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
@@ -162,12 +162,12 @@ export const SingleCarDataApi = (carId) => async dispatch => {
                 type: LOADING,
                 payload: false,
             });
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };

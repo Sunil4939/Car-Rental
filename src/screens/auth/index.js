@@ -4,8 +4,9 @@ import Icons from '../../component/atoms/Icons';
 import { COLORS, images, SIZES } from "../../constants"
 import styles from './styles';
 import Button1 from '../../component/atoms/buttons/Button1'
+import { connect } from 'react-redux';
 
-const Auth = ({navigation}) => {
+const Auth = ({ navigation, token }) => {
     return (
         <ImageBackground source={images.bg}
             resizeMode="stretch"
@@ -14,11 +15,11 @@ const Auth = ({navigation}) => {
                 backgroundColor={COLORS.white}
                 barStyle="dark-content"
             />
-            <View style={{ width: SIZES.width * .9 }}>
+            {/* <View style={{ width: SIZES.width * .9 }}>
                 <TouchableOpacity style={styles.close}>
                     <Icons name={"close"} size={20} color={COLORS.white} />
                 </TouchableOpacity>
-            </View>
+            </View> */}
             <View style={styles.container1}>
 
                 <View style={styles.logoBox}>
@@ -29,20 +30,34 @@ const Auth = ({navigation}) => {
                     />
                 </View>
             </View>
+            <Button1 style={styles.hostBtn}
+                    // backgroundColor={COLORS.black}
+                    // textColor={COLORS.white}
+                    onPress={() => navigation.navigate(token ? "Term" :"Login")}
+                >Become a host</Button1>
 
             <View style={styles.box}>
                 <Text style={styles.title}>Find your drive</Text>
                 <Button1 style={styles.btnStyle}
-                onPress={() => navigation.navigate("SignUp")}
+                    onPress={() => navigation.navigate("SignUp")}
                 >Sign up</Button1>
-                <Button1 style={{width: SIZES.width * .9}}
+                <Button1  style={styles.btnStyle}
                     backgroundColor={COLORS.black}
                     textColor={COLORS.white}
                     onPress={() => navigation.navigate("Login")}
                 >Log in</Button1>
             </View>
+                
         </ImageBackground>
     )
 }
 
-export default Auth;
+const mapStateToProps = (state) => ({
+    loading: state.getVendor.loading,
+    token: state.auth.token,
+  })
+  
+  const mapDispatchToProps = {
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Auth)

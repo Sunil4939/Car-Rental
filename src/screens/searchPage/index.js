@@ -37,6 +37,7 @@ const SearchPage = ({ navigation, loading, searchData, SearchCarApi }) => {
         <Image source={images.image2} style={styles.bgImage} resizeMode="stretch" />
         <View style={styles.searchBox}>
           <TouchableOpacity style={styles.search}
+          //  onPress={() => navigation.navigate("SearchScreen")}
             onPress={() => navigation.navigate("Product")}
           >
             <Icons name={"search"} size={20} color={COLORS.black} style={styles.searchIcon} />

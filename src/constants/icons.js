@@ -50,7 +50,7 @@ const spot = require("../assets/icons/spot.png")
 const abs = require("../assets/icons/abs.png")
 const seats = require("../assets/icons/seats.png")
 const backup = require("../assets/icons/backup.png")
-// const aux = require("../assets/icons/aux.png")
+const aux = require("../assets/icons/usb.png")
 const usb = require("../assets/icons/usb.png")
 const star_outline = require("../assets/icons/star_outline.png")
 const file = require("../assets/icons/file.png")
@@ -59,6 +59,7 @@ const home = require("../assets/icons/home.png")
 const location = require("../assets/icons/location.png")
 const calendar2 = require("../assets/icons/calendar2.png")
 const notification = require("../assets/icons/notification.png")
+const addPost = require("../assets/icons/addPost.png")
 
 
 export default {
@@ -124,4 +125,5 @@ export default {
     location,
     calendar2,
     notification,
+    addPost,
 }

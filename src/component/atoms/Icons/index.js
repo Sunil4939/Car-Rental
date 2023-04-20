@@ -28,6 +28,11 @@ const Icons = ({ name, color, size, style }) => {
                 style={[{ tintColor: color, height: size, width: size }, style]}
                 resizeMode="contain"
             />
+            case 'addPost':
+                return <Image source={icons.addPost}
+                    style={[{ tintColor: color, height: size, width: size }, style]}
+                    resizeMode="contain"
+                />
         case 'edit':
             return <Image source={icons.edit}
                 style={[{ tintColor: color, height: size, width: size }, style]}
@@ -146,6 +151,9 @@ const Icons = ({ name, color, size, style }) => {
 
 
         // icons
+        case 'accountcircle':
+            return <MaterialCommunityIcons style={StyleSheet.create(style)} name="account-circle-outline" size={size} color={color} />
+
         case 'down-outline':
             return <Ionicons style={StyleSheet.create(style)} name="chevron-down-outline" size={size} color={color} />
         case 'heart':
@@ -199,6 +207,12 @@ const Icons = ({ name, color, size, style }) => {
 
         case 'menu':
             return <Feather style={StyleSheet.create(style)} name="menu" size={size} color={color} />
+        case 'license1':
+            return <FontAwesome style={StyleSheet.create(style)} name="drivers-license" size={size} color={color} />
+        case 'bank':
+            return <MaterialCommunityIcons style={StyleSheet.create(style)} name="bank" size={size} color={color} />
+        case 'wallet1':
+            return <FontAwesome5 style={StyleSheet.create(style)} name="wallet" size={size} color={color} />
 
         default:
             return <MaterialIcons style={StyleSheet.create(style)} name="logout" size={size} color={color} />

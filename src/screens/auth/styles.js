@@ -16,7 +16,7 @@ export default StyleSheet.create({
     },
 
     container1: {
-        height: SIZES.height * .5,
+        height: SIZES.height * .4,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -44,9 +44,18 @@ export default StyleSheet.create({
         textAlign: 'center',
     },
 
+    box: {
+        marginTop: SIZES.height * .07,
+    },
+
     btnStyle: {
         width: SIZES.width * .9,
         marginBottom: SIZES.height * .02,
+        borderWidth: 0,
+    },
+    hostBtn: {
+        width: SIZES.width * .9,
+        marginTop: SIZES.height * .05,
         borderWidth: 0,
     },
 })

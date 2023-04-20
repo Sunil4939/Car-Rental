@@ -540,4 +540,112 @@ export default StyleSheet.create({
         marginBottom: SIZES.height * .02,
     },
 
+
+
+
+
+
+
+
+
+
+
+
+    bottomBox: {
+        width: SIZES.width,
+        borderRadius: 20,
+        backgroundColor: COLORS.white,
+        elevation: 10,
+        alignItems: 'center',
+        marginTop: SIZES.height * .04,
+    },
+
+    total_row: {
+        width: SIZES.width * .9,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: SIZES.height * .02,
+    },
+
+    totalRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    file: {
+        width: 20,
+        height: 24,
+        marginRight: SIZES.width * .02,
+    },
+
+    cart_total: {
+        fontFamily: FONTS.regular,
+        fontSize: 14,
+        color: COLORS.black,
+    },
+
+    price: {
+        fontFamily: FONTS.semiBold,
+        fontSize: 18,
+        color: COLORS.black,
+    },
+
+    btn: {
+        width: SIZES.width * .9,
+        marginBottom: SIZES.height * .04,
+    },
+
+    totalBtn: {
+        width: SIZES.width * .9,
+        height: SIZES.height * .06,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: SIZES.height * .02,
+        backgroundColor: COLORS.white,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#333333",
+        paddingHorizontal: SIZES.width * .03,
+    },
+
+    totalBtnText: {
+        fontFamily: FONTS.medium,
+        fontSize: 14,
+        color: COLORS.black
+    },
+
+    bottomSheet: {
+        width: SIZES.width,
+        alignItems: 'center',
+        backgroundColor: COLORS.white,
+        borderRadius: 30,
+    },
+
+    closeBox: {
+       width: SIZES.width * .1,
+       height: SIZES.height * .05,
+       backgroundColor: COLORS.white,
+       borderRadius: 50,
+       alignItems: 'center',
+       justifyContent: 'center',
+    },
+
+    close_container: {
+        width: SIZES.width * .9,
+        alignItems: 'flex-end',
+        marginBottom: SIZES.height * .02,
+    },
+
+    bottom_container: {
+        width: SIZES.width,
+        alignItems: 'center' 
+    },
+
+    priceBox: {
+        width: SIZES.width * .9,
+        marginVertical: SIZES.height * .02,
+    },
+
 })

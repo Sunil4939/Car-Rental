@@ -93,11 +93,11 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
   const [postData, setPostData] = useState({
     from: null,
     until: null,
-    fuelType: null,
-    color: null,
-    brand: null,
-    years: null,
-    transmission: null,
+    fuelType: '',
+    color: '',
+    brand: '',
+    years: '',
+    transmission: '',
   });
 
 
@@ -114,11 +114,11 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
     SearchFilterApi(searchTitle)
   }, [])
 
-  const [color, setColor] = useState([])
-  const [fuelType, setFuelType] = useState()
-  const [transmission, setTransmission] = useState()
-  const [brand, setBrand] = useState()
-  const [years, setYears] = useState()
+  const [color, setColor] = useState('')
+  const [fuelType, setFuelType] = useState('')
+  const [transmission, setTransmission] = useState('')
+  const [brand, setBrand] = useState('')
+  const [years, setYears] = useState('')
 
   const handleColor = (value) => {
     let arr = [...color]
@@ -183,7 +183,9 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
   }
 
   const handleFilter = () => {
-    const filterUrl = `filter_car?page=1&brandFilter=${brand}&yearFilter=${years}&${transmission}Filter=${transmission}&${fuelType}=${fuelType}`
+    const filterUrl = `search_car?&brandFilter=${postData.brand}&yearFilter=${postData.years}&${postData.transmission}Filter=${postData.transmission}&${postData.fuelType}Filter=${postData.fuelType}`
+    // const filterUrl = `search_car?&brandFilter=${brand}&yearFilter=${years}&${transmission}Filter=${transmission}&${fuelType}Filter=${fuelType}`
+    // const filterUrl = `filter_car?page=1&brandFilter=${brand}&yearFilter=${years}&${transmission}Filter=${transmission}&${fuelType}Filter=${fuelType}`
 
     console.log("guguo ", filterUrl)
     FilterApi(filterUrl, postData)
@@ -343,9 +345,9 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
                         disabled={false}
                         value={postData.fuelType == item ? true : false}
                         onValueChange={() => handleChange("fuelType", item)}
-                        // value={fuelType.includes(item) ? true : false}
+                        // value={fuelType == item ? true : false}
                         tintColors={{ true: "#59595A", false: "#59595A" }}
-                        // onValueChange={() => handleFuel(item)}
+                        // onValueChange={() => setFuelType(item)}
                         style={styles.checkBox}
                       />
                       <Text style={styles.label}>{item}</Text>
@@ -356,11 +358,11 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
                     <View style={styles.row1} key={i}>
                       <CheckBox
                         disabled={false}
-                        // value={transmission.includes(item) ? true : false}
+                        // value={transmission == item ? true : false}
                         value={postData.transmission == item ? true : false}
                         onValueChange={() => handleChange("transmission", item)}
                         tintColors={{ true: "#59595A", false: "#59595A" }}
-                        // onValueChange={() => handleTransmision(item)}
+                        // onValueChange={() => setTransmission(item)}
                         style={styles.checkBox}
                       />
                       <Text style={styles.label}>{item}</Text>
@@ -370,9 +372,9 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
                     <View style={styles.row1} key={i}>
                       <CheckBox
                         disabled={false}
-                        // value={brand.includes(item) ? true : false}
+                        // value={brand == item ? true : false}
                         tintColors={{ true: "#59595A", false: "#59595A" }}
-                        // onValueChange={() => handleBrand(item)}
+                        // onValueChange={() => setBrand(item)}
                         value={postData.brand == item ? true : false}
                         onValueChange={() => handleChange("brand", item)}
                         style={styles.checkBox}
@@ -385,11 +387,11 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
                       <View style={styles.row1} key={i}>
                         <CheckBox
                           disabled={false}
-                          value={postData.color == item ? true : false}
+                          // value={color == item ? true : false}
                           onValueChange={() => handleChange("color", item)}
-                          // value={color.includes(item) ? true : false}
+                          value={postData.color == item ? true : false}
                           tintColors={{ true: "#59595A", false: "#59595A" }}
-                          // onValueChange={() => handleColor(item)}
+                          // onValueChange={() => setColor(item)}
                           style={styles.checkBox}
                         />
                         <Text style={styles.label}>{item}</Text>
@@ -403,10 +405,10 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
                       <View style={styles.row1} key={i}>
                         <CheckBox
                           disabled={false}
-                          // value={years.includes(item) ? true : false}
-                          tintColors={{ true: "#59595A", false: "#59595A" }}
-                          // onValueChange={() => handleYear(item)}
                           value={postData.years == item ? true : false}
+                          tintColors={{ true: "#59595A", false: "#59595A" }}
+                          // onValueChange={() => setYears(item)}
+                          // value={years == item ? true : false}
                           onValueChange={() => handleChange("years", item)}
                           style={styles.checkBox}
                         />

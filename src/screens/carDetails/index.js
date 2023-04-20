@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import Loading from '../../component/atoms/Loading';
 import { RNToasty } from 'react-native-toasty';
 import { SaveVendorDataApi } from '../../redux/actions/vendorRegistration';
+import Loading1 from '../../component/atoms/Loading/Loading1';
 
 
 
@@ -67,7 +68,7 @@ const CarDetails = ({ navigation, route, loading, SaveVendorDataApi, features, G
             // })
         }
         handleChange("features", arr)
-        // setSelect(arr)
+        setSelect(arr)
         // console.log('select : ', arr)
     }
     useEffect(() => {
@@ -78,7 +79,7 @@ const CarDetails = ({ navigation, route, loading, SaveVendorDataApi, features, G
     return (
         <>
             {loading ?
-                <Loading />
+                <Loading1 />
                 :
                 <View style={styles.container}>
                     <StatusBar

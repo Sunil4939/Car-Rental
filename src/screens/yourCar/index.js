@@ -9,12 +9,13 @@ import Dropdown from '../../component/atoms/dropdown';
 import Header from '../../component/atoms/Header';
 import ProgressBar from '../../component/atoms/progressBar';
 import { connect } from 'react-redux';
-import Loading from '../../component/atoms/Loading'
+// import Loading from '../../component/atoms/Loading'
 import { GetDistanceUnitApi, GetPriceListApi, GetVendorApi } from '../../redux/actions/vendorGetApi';
 import { RNToasty } from 'react-native-toasty';
+import Loading1 from '../../component/atoms/Loading/Loading1';
 
 
-const YourCar = ({ navigation, loading, GetDistanceUnitApi, GetPriceListApi, countries, currencies, fuelList, distanceList, transmissionList, priceList }) => {
+const YourCar = ({ navigation, loading,route, GetDistanceUnitApi, GetPriceListApi, countries, currencies, fuelList, distanceList, transmissionList, priceList }) => {
 
     const country = ["Select your country", ...(countries ? Object.keys(countries) : null)]
     const currency = ["Select currency", ...(currencies ? Object.keys(currencies) : null)]
@@ -25,24 +26,22 @@ const YourCar = ({ navigation, loading, GetDistanceUnitApi, GetPriceListApi, cou
     let year = ["Select build year", 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,
         2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
 
-    // const handleYear = () => {
-    //     for (let i = 1990; i <= 2023; i++) {
-    //         year.push(i)
-    //     }
-    // }
 
     useEffect(() => {
         GetPriceListApi()
         GetDistanceUnitApi()
     }, [])
+    // console.log("oroeriio : ", route.params.carData)
+
+    const data = route.params.carData.carData
 
     const [postData, setPostData] = useState({
+        // ...route.params.carData,
         location: null,
         code: "",
         country_id: null,
-        registration_number: "",
+        registration_number: null,
         brand: null,
-        // email: null,
         build_year: null,
         odometer: null,
         transmission: null,
@@ -57,6 +56,26 @@ const YourCar = ({ navigation, loading, GetDistanceUnitApi, GetPriceListApi, cou
         fuel: null,
         airconditioned: null,
     })
+    // const [postData, setPostData] = useState({
+    //     location: null,
+    //     code: "",
+    //     country_id: null,
+    //     registration_number: "",
+    //     brand: null,
+    //     build_year: null,
+    //     odometer: null,
+    //     transmission: null,
+    //     color: null,
+    //     currency_id: null,
+    //     price: "",
+    //     additional_price: "",
+    //     distance: null,
+    //     name: null,
+    //     number_plate: null,
+    //     seat: null,
+    //     fuel: null,
+    //     airconditioned: null,
+    // })
     const handleChange = (name, value) => {
         setPostData({
             ...postData,
@@ -83,7 +102,7 @@ const YourCar = ({ navigation, loading, GetDistanceUnitApi, GetPriceListApi, cou
     return (
         <>
             {loading ?
-                <Loading />
+                <Loading1 />
                 :
 
                 <View style={styles.container}>

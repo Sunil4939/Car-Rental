@@ -56,16 +56,16 @@ export default (state = initialState, action) => {
                 ...state,
                 availability: action.payload
             }
-            case CAR_LIST:
-                return {
-                    ...state,
-                    carList: action.payload
-                }
-                case CAR_IMAGES:
-                    return {
-                        ...state,
-                        carImages: action.payload
-                    }
+        case CAR_LIST:
+            return {
+                ...state,
+                carList: action.payload
+            }
+        case CAR_IMAGES:
+            return {
+                ...state,
+                carImages: action.payload
+            }
         case LOADING:
             return {
                 ...state,

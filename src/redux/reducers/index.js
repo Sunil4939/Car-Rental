@@ -5,6 +5,7 @@ import product from "./product";
 import search from "./search";
 import booking from "./booking";
 import home from "./home";
+import payment from "./payment";
 
 
 
@@ -16,4 +17,5 @@ export default combineReducers ({
     search,
     booking,
     home,
+    payment,
 })

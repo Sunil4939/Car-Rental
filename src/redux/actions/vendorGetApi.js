@@ -21,24 +21,24 @@ export const GetAllCountryApi = () => async dispatch => {
                     type: COUNTRIES,
                     payload: response.data.data,
                 });
-                RNToasty.Success({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             } else {
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };
@@ -52,24 +52,24 @@ export const GetAllCurrencyApi = () => async dispatch => {
                     payload: response.data.data,
                 });
             
-                RNToasty.Success({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             } else {
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };
@@ -82,10 +82,10 @@ export const GetFuelListApi = () => async dispatch => {
                     type: FUEL_LIST,
                     payload: response.data.data,
                 });
-                RNToasty.Success({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             } else {
                 RNToasty.Info({
                     title: response.data.message,
@@ -94,12 +94,12 @@ export const GetFuelListApi = () => async dispatch => {
             }
         })
         .catch(error => {
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };
@@ -113,24 +113,24 @@ export const GetTransmissionListApi = () => async dispatch => {
                     payload: response.data.data,
                 });
             
-                RNToasty.Success({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             } else {
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };
@@ -152,19 +152,19 @@ export const GetPriceListApi = () => async dispatch => {
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Success({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             } else {
                 dispatch({
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
@@ -172,12 +172,12 @@ export const GetPriceListApi = () => async dispatch => {
                 type: LOADING,
                 payload: false,
             });
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };
@@ -199,19 +199,19 @@ export const GetDistanceUnitApi = () => async dispatch => {
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Success({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             } else {
                 dispatch({
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
@@ -219,12 +219,12 @@ export const GetDistanceUnitApi = () => async dispatch => {
                 type: LOADING,
                 payload: false,
             });
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };
@@ -246,19 +246,19 @@ export const GetFeaturesApi = () => async dispatch => {
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Success({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             } else {
                 dispatch({
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
@@ -266,12 +266,12 @@ export const GetFeaturesApi = () => async dispatch => {
                 type: LOADING,
                 payload: false,
             });
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };
@@ -293,19 +293,19 @@ export const GetAvailabilityApi = () => async dispatch => {
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Success({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             } else {
                 dispatch({
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
@@ -313,12 +313,12 @@ export const GetAvailabilityApi = () => async dispatch => {
                 type: LOADING,
                 payload: false,
             });
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };

@@ -82,6 +82,7 @@ project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
 ]
 
+
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
@@ -131,6 +132,7 @@ def reactNativeArchitectures() {
 }
 
 android {
+   
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -262,7 +264,9 @@ android {
 }
 
 dependencies {
-
+  // Stripe Android SDK
+  implementation 'com.stripe:stripe-android:20.22.0'
+  
     // find geo location
     //  compile project(':react-native-geocoder')
 
@@ -270,10 +274,11 @@ dependencies {
     implementation 'com.facebook.fresco:animated-gif:2.6.0'
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
-implementation 'com.google.android.material:material:1.6.0'
+    implementation 'com.google.android.material:material:1.6.0'
+    
 
       //add google map
-  implementation(project(':react-native-maps')){
+    implementation(project(':react-native-maps')){
       exclude group: 'com.google.android.gms'
   }
 

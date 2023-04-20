@@ -11,9 +11,12 @@ import formatDate from "../../services/date";
 import LoginBox from "../../component/atoms/LoginBox";
 import NoDataBox from "../../component/atoms/noDataBox";
 import Loading1 from "../../component/atoms/Loading/Loading1";
+import BookedCar from "../../component/atoms/BookedCar";
+import { http2 } from "../../services/api";
+import { createCustomer, createPaymentIntent } from "../../redux/actions/paymentAction";
 
 
-const TripBox = ({ source, time, startTrip, endTrip, currentLocation, price, onPress }) => {
+const TripBox = ({ source, time, customerData, startTrip, endTrip, currentLocation, price, onPress }) => {
   return (
     <TouchableOpacity style={styles.tripBox} onPress={onPress}>
       <View style={styles.row}>
@@ -25,8 +28,9 @@ const TripBox = ({ source, time, startTrip, endTrip, currentLocation, price, onP
             <Text style={styles.time}>{time}</Text>
             <Text style={styles.currentLocation}>{currentLocation}</Text>
           </View>
+
           {/* <View> */}
-          <View style={styles.tripContainer}>
+          {/* <View style={styles.tripContainer}>
             <View style={styles.row1}>
               <View style={styles.row2}>
                 <View style={styles.dot} />
@@ -39,7 +43,7 @@ const TripBox = ({ source, time, startTrip, endTrip, currentLocation, price, onP
               </View>
             </View>
 
-          </View>
+          </View> */}
 
           {/* </View> */}
         </View>
@@ -54,13 +58,24 @@ const TripBox = ({ source, time, startTrip, endTrip, currentLocation, price, onP
   )
 }
 
+
 const Tab = createMaterialTopTabNavigator();
 
 const Booked = ({ navigation, }) => {
   const dispatch = useDispatch()
+
+  // const customerData = useSelector(state => state.payment.customerData)
+
+  const createPaymentSheet = async (amount, currency) => {
+    // console.log("amt, andkf cur : ", amount, currency, customerData && customerData.id)
+    dispatch(createCustomer(amount, currency))
+    // if (customerData) {
+    //   dispatch(createPaymentIntent(amount, currency, customerData && customerData.id))
+    // }
+  }
   const bookingData = useSelector(state => state.booking.bookingData)
   const loading = useSelector(state => state.booking.loading)
-  // console.log("booking data : ", loading[0].price)
+  // console.log("booking data : ", bookingData && bookingData[0])
   return (
     <>
       {loading ?
@@ -74,17 +89,15 @@ const Booked = ({ navigation, }) => {
             <View style={styles.container1}>
               {bookingData && bookingData.map((item) => (
                 <View style={styles.listBox} key={item.id}>
-                  <TripBox
-                    source={item.source}
-                    // time={item.time}
-                    time={formatDate(item.booking_date)}
-                    currentLocation={item.booking_id}
-                    // currentLocation={item.currentLocation}
-                    // startTrip={item.startTrip}
-                    // endTrip={item.endTrip}
-                    startTrip={item.pick_up_lat}
-                    endTrip={item.pick_up_lng}
+                  <BookedCar
+                    source={item.car && item.car.image ? { uri: http2 + item.car.image.front } : images.car2}
+                    brand={item.car && item.car.brand}
+                    carName={item.car && item.car.name}
+                    date={item.booking_date}
+                    bookingId={item.booking_id}
                     price={"$" + item.price}
+                    bookingStatus={item.booking_status.status}
+                    paymentPress={() => {  createPaymentSheet(item.price, "USD"), navigation.navigate("Payment")}}
                   // onPress={() => navigation.navigate("Product")}
                   />
                 </View>

@@ -12,29 +12,43 @@ import {
 
 import { SwipeListView } from 'react-native-swipe-list-view';
 import SwitchToggle from 'react-native-switch-toggle';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { COLORS, FONTS, icons, images, SIZES } from '../../../constants';
 import { DeleteCarDataApi, GetCarImageApi } from '../../../redux/actions/vendorRegistration';
 import { http2 } from '../../../services/api';
 import findAgoDays from '../../../services/findAgoDays';
+import Loading1 from '../Loading/Loading1';
 
 
 
 
-const SwipeValueBasedUi = ({ data, added, year, source,DeleteCarDataApi }) => {
-    // console.log("daat : ", data[0])
-    // data.map((item)=> console.log("profile image : ", item.profile_image))
+
+const SwipeValueBasedUi = ({data, added, year, source }) => {
+    const dispatch = useDispatch()
+
+    // const loading = useSelector(state => state.getVendor.loading)
+    // const carList = useSelector(state => state.getVendor.carList)
+    // let data = carList && carList
+    // console.log("car list swipe : ", carList)
 
     const [toggle, setToggle] = useState([])
     const [listData, setListData] = useState(
         data.map((item, i) => ({ key: `${i}`, ...item }))
     );
 
+    // const [listData, setListData] = useState(
+    //     carList && carList.map((item, i) => ({ key: `${i}`, ...item }))
+    // );
+
+
     const rowSwipeAnimatedValues = {};
-    data
-        .forEach((item, i) => {
+    data.forEach((item, i) => {
             rowSwipeAnimatedValues[`${i}`] = new Animated.Value(0);
         });
+
+    // carList && carList.forEach((item, i) => {
+    //         rowSwipeAnimatedValues[`${i}`] = new Animated.Value(0);
+    //     });
 
     const closeRow = (rowMap, rowKey) => {
         if (rowMap[rowKey]) {
@@ -78,7 +92,7 @@ const SwipeValueBasedUi = ({ data, added, year, source,DeleteCarDataApi }) => {
                                 <Text style={styles.name}>{data.item.name}</Text>
                                 <View style={styles.row1}>
                                     <Text style={styles.year}>Year {data.item.build_year ? data.item.build_year : year}</Text>
-                                    <Text style={styles.added}>Added: {findAgoDays(data.item.created_at)}</Text>  
+                                    <Text style={styles.added}>Added: {findAgoDays(data.item.created_at)}</Text>
                                 </View>
                             </View>
                         </View>
@@ -109,7 +123,7 @@ const SwipeValueBasedUi = ({ data, added, year, source,DeleteCarDataApi }) => {
             <View style={styles.rowBack}>
                 <TouchableOpacity
                     style={[styles.backRightBtn, styles.backRightBtnRight]}
-                    onPress={() => DeleteCarDataApi(data.item.id) }
+                    onPress={() => dispatch(DeleteCarDataApi(data.item.id))}
                 >
                     {/* <Animated.View
                         style={[
@@ -149,18 +163,18 @@ const SwipeValueBasedUi = ({ data, added, year, source,DeleteCarDataApi }) => {
 
     return (
         <View style={styles.container}>
-            <SwipeListView
-                data={listData}
-                renderItem={renderItem}
-                renderHiddenItem={renderHiddenItem}
-                leftOpenValue={0}
-                rightOpenValue={-80}
-                previewRowKey={'0'}
-                previewOpenValue={-40}
-                previewOpenDelay={3000}
-                onRowDidOpen={onRowDidOpen}
-                onSwipeValueChange={onSwipeValueChange}
-            />
+                <SwipeListView
+                    data={listData}
+                    renderItem={renderItem}
+                    renderHiddenItem={renderHiddenItem}
+                    leftOpenValue={0}
+                    rightOpenValue={-80}
+                    previewRowKey={'0'}
+                    previewOpenValue={-40}
+                    previewOpenDelay={3000}
+                    onRowDidOpen={onRowDidOpen}
+                    onSwipeValueChange={onSwipeValueChange}
+                />
         </View>
     );
 }
@@ -175,16 +189,16 @@ SwipeValueBasedUi.defaultProps = {
 }
 
 
-const mapStateToProps = (state) => ({
-    loading: state.getVendor.loading,
-    
-})
+// const mapStateToProps = (state) => ({
+//     loading: state.getVendor.loading,
+// })
 
-const mapDispatchToProps = {
-    DeleteCarDataApi
-}
+// const mapDispatchToProps = {
+//     DeleteCarDataApi
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SwipeValueBasedUi)
+// export default connect(mapStateToProps, mapDispatchToProps)(SwipeValueBasedUi)
+export default SwipeValueBasedUi;
 
 const styles = StyleSheet.create({
     container: {
