@@ -13,16 +13,15 @@ import { http2 } from '../../services/api';
 import { useState } from 'react';
 import LoginBox from '../../component/atoms/LoginBox';
 import Loading1 from '../../component/atoms/Loading/Loading1';
-import { SwipeListView } from 'react-native-swipe-list-view';
-import { SwipeCarBox, HiddenSwipeBox } from '../../component/atoms/swipeBox/SwipeCarBox';
+import SwipeCarBox from '../../component/atoms/swipeBox/SwipeCarBox';
 import findAgoDays from '../../services/findAgoDays';
 import { GetUserDataApi } from '../../redux/actions/authAction';
 import { SingleCarDataApi } from '../../redux/actions/productAction';
 
 
-const AddCarList = ({ navigation, GetCarListApi, carList, token, GetCarImageApi,SingleCarDataApi, GetUserDataApi, DeleteCarDataApi, carImages, userData, loading }) => {
+const AddCarList = ({ navigation, GetCarListApi, carList, token, GetCarImageApi, SingleCarDataApi, GetUserDataApi, DeleteCarDataApi, carImages, userData, loading }) => {
 
-  // console.log("user : ", userData)
+  console.log("user : ", userData && userData.role)
   const [role, setRole] = useState(userData && userData.role)
 
   const [listData, setListData] = useState();
@@ -32,15 +31,7 @@ const AddCarList = ({ navigation, GetCarListApi, carList, token, GetCarImageApi,
     GetCarListApi()
   }, [])
 
-
-  const rowSwipeAnimatedValues = {};
-  useEffect(() => {
-    // setListData(carList && carList.map((item, i) => ({ key: `${i}`, ...item })))
-
-    carList.forEach((item, i) => {
-      rowSwipeAnimatedValues[`${i}`] = new Animated.Value(0);
-    });
-  }, [carList])
+  // console.log("dsafdasf ; ", carList[2])
 
 
   return (
@@ -55,59 +46,50 @@ const AddCarList = ({ navigation, GetCarListApi, carList, token, GetCarImageApi,
       {loading ?
         <Loading1 />
         :
-        role == "vendor" ?
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.titleBox}>
-              <Text style={styles.title}>Your Listings</Text>
-            </View>
-            <View style={styles.contentBox}>
-              <Text style={styles.title1}>Add new Listing</Text>
-              <View style={styles.listBox}>
+        <>
+          {role == "vendor" || carList ?
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={styles.titleBox}>
+                <Text style={styles.title}>Your Listings</Text>
+              </View>
+              <View style={styles.contentBox}>
+                <Text style={styles.title1}>Add new Listing</Text>
+                <View style={styles.listBox}>
 
-                <View style={styles.listContainer}>
-                  <SwipeListView
-                    data={carList}
-                    renderItem={({ item }) => (
+                  <View style={styles.listContainer}>
+                    {carList && carList.map((item) => (
                       <SwipeCarBox
+                        key={item.id}
                         source={item.image.front ? { uri: http2 + item.image.front } : images.car1}
                         isActive={item.is_active}
                         brandName={item.name}
                         buildYear={item.build_year}
                         createdAt={findAgoDays(item.created_at)}
-                        onPress={()=>{ SingleCarDataApi(item.id), navigation.navigate("Terms", {carData: item})}}
+                        editPress={() => navigation.navigate("UpdateCar", { carData: item })}
+                        deletePress={() => DeleteCarDataApi(item.id)}
                       />
-                    )}
-                    renderHiddenItem={({ item }) => (
-                      <HiddenSwipeBox deletePress={() => DeleteCarDataApi(item.id)} />
-                    )}
-                    leftOpenValue={0}
-                    rightOpenValue={-80}
-                    previewRowKey={'0'}
-                    previewOpenValue={-40}
-                    previewOpenDelay={3000}
-                    onSwipeValueChange={({ key, value }) => {
-                    }}
-                  />
+                    ))}
+                  </View>
                 </View>
-
               </View>
-            </View>
-            <View style={styles.btnBox}>
+              <View style={styles.btnBox}>
+                <Button1 style={{ width: SIZES.width * .9 }}
+                  backgroundColor={COLORS.black}
+                  textColor={COLORS.white}
+                  onPress={() => navigation.navigate("Terms")}
+                >Add new list</Button1>
+              </View>
+            </ScrollView>
+            :
+            <View style={styles.box}>
               <Button1 style={{ width: SIZES.width * .9 }}
                 backgroundColor={COLORS.black}
                 textColor={COLORS.white}
                 onPress={() => navigation.navigate("Terms")}
-              >Add new list</Button1>
+              >Become a host</Button1>
             </View>
-          </ScrollView>
-          :
-          <View style={styles.box}>
-            <Button1 style={{ width: SIZES.width * .9 }}
-              backgroundColor={COLORS.black}
-              textColor={COLORS.white}
-              onPress={() => navigation.navigate("Terms")}
-            >Become a host</Button1>
-          </View>
+          }
+        </>
       }
     </View>
   )

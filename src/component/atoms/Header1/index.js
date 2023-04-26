@@ -15,7 +15,7 @@ const Header1 = ({ onPress, source, userName }) => {
                 <View style={{...styles.profileBox, borderWidth: source ? 0 : 1}}>
                     {token ?
                         <Image
-                            source={userData && userData.profile_image ? {uri: http2 + userData.profile_image} : source}
+                            source={userData.profile && userData.profile.profile_image ? {uri: http2 + userData.profile && userData.profile.profile_image} : source}
                             style={styles.profileImg}
                             resizeMode="contain"
                         />
@@ -33,7 +33,7 @@ const Header1 = ({ onPress, source, userName }) => {
                 onPress={onPress}
                     // onPress={() => setModalVisible(!isModalVisible)}
                 >
-                    <Text style={styles.edit}>{token ? "Edit Profile" : "Login or Signup"}</Text>
+                    <Text style={styles.edit}>{token && userData ? "Edit Profile" : "Login or Signup"}</Text>
                     <Icons name={"edit"} size={15} color={COLORS.blue} />
                 </TouchableOpacity>
                 </View>

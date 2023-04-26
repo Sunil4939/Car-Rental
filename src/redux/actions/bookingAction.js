@@ -1,9 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RNToasty } from "react-native-toasty";
-import { BOOKING_DATA, LOADING, SESSION_ID, } from "../types";
+import { BOOKING_DATA, BOOKING_HISTORY, LOADING, SESSION_ID, } from "../types";
 import http from "../../services/api";
 import objectToFormData from "../../services/objectToFormData";
 import { createCustomer, createPaymentIntent } from "./paymentAction";
+import { GetAllNotification } from "./notificationAction";
 
 export const ShowAllBookingApi = () => async dispatch => {
     dispatch({
@@ -164,3 +165,101 @@ export const CreatePaymentApi = (postData, navigation) => async dispatch => {
 };
 
 
+
+export const BookingHistoryApi = () => async dispatch => {
+    dispatch({
+        type: LOADING,
+        payload: true,
+    });
+
+    http.post(`booking_history`)
+        .then(response => {
+            if (response.data.response) {
+                dispatch({
+                    type: BOOKING_HISTORY,
+                    payload: response.data.data,
+                });
+             
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
+                // RNToasty.Success({
+                //     title: "Get Booking Car successfully",
+                //     duration: 2,
+                // });
+            } else {
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
+            }
+        })
+        .catch(error => {
+            dispatch({
+                type: LOADING,
+                payload: false,
+            });
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
+
+        })
+};
+
+
+export const UpdateBookingStatus = (car_booking_id, payment_intent, navigation) => async dispatch => {
+    dispatch({
+        type: LOADING,
+        payload: true,
+    });
+
+    // console.log("navigation : ", navigation)
+
+    http.get(`booking_status?car_booking_id=${car_booking_id}&payment_intent=f${payment_intent}`)
+        .then(response => {
+            if (response.data.response) {
+                dispatch(ShowAllBookingApi())
+                navigation && navigation.navigate("Trips")
+                dispatch(GetAllNotification())
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
+       
+                RNToasty.Success({
+                    title: "booking status update successfully",
+                    duration: 2,
+                });
+            } else {
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
+            }
+        })
+        .catch(error => {
+            dispatch({
+                type: LOADING,
+                payload: false,
+            });
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
+
+        })
+};

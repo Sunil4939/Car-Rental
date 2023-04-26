@@ -15,8 +15,8 @@ const Login = ({ navigation, LoginApi }) => {
     const [secure, setSecure] = useState(true)
 
     const [postData, setPostData] = useState({
-        email: "",
-        password: "",
+        email: null,
+        password:null,
     })
     // console.log(route.params.mobile)
     const handleChange = (name, value) => {

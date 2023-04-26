@@ -30,7 +30,7 @@ const CarProfile = ({ navigation, route, }) => {
 
 
     const handleSubmit = () => {
-        console.log("post data : ", postData)
+        // console.log("post data : ", postData)
         navigation.navigate("DriverLicense", { data: postData })
         // if (postData.profile_image) {
         //     navigation.navigate("DriverLicense", { data: postData })

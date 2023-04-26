@@ -66,6 +66,7 @@ export const SignUpApi = (postData, navigation) => async dispatch => {
 
 export const LoginApi = (postData, navigation) => async dispatch => {
     postData = await objectToFormData(postData)
+    
     dispatch({
         type: LOADING,
         payload: true,
@@ -78,23 +79,25 @@ export const LoginApi = (postData, navigation) => async dispatch => {
         },
     })
         .then(async response => {
+            console.log(response)
             if (response.data.response) {
-                dispatch(InitialCall())
-                await AsyncStorage.setItem('@USER_TOKEN', response.data.message.token);
-                await AsyncStorage.setItem('@USER_ID', String(response.data.message.id))
+                RNToasty.Success({
+                    title: response.data.data,
+                    duration: 2,
+                });
                 dispatch({
                     type: AUTH_TOKEN,
                     payload: response.data.message.token
                 })
+                dispatch(InitialCall())
+                await AsyncStorage.setItem('@USER_TOKEN', response.data.message.token);
+                await AsyncStorage.setItem('@USER_ID', String(response.data.message.id))
                 navigation && navigation.goBack()
                 dispatch({
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Success({
-                    title: response.data.data,
-                    duration: 2,
-                });
+               
             } else {
                 dispatch({
                     type: LOADING,
@@ -112,8 +115,8 @@ export const LoginApi = (postData, navigation) => async dispatch => {
                 payload: false,
             });
             console.log("login error : ", error)
-            RNToasty.Normal({
-                title: "Please create new account",
+            RNToasty.Error({
+                title: "login error ",
                 duration: 2,
             });
 
@@ -199,10 +202,10 @@ export const GetUserDataApi = () => async dispatch => {
                     type: USER_DATA,
                     payload: response.data.data,
                 })
-                RNToasty.Success({
-                    title: "get user data successfully",
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: "get user data successfully",
+                //     duration: 2,
+                // });
                 dispatch({
                     type: LOADING,
                     payload: false,
@@ -212,10 +215,10 @@ export const GetUserDataApi = () => async dispatch => {
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
@@ -224,10 +227,10 @@ export const GetUserDataApi = () => async dispatch => {
                 payload: false,
             });
             // console.log("user data error : ", error.response.data)
-            RNToasty.Error({
-                title: error.response.data.message,
-                duration: 2,
-            });
+            // RNToasty.Error({
+            //     title: error.response.data.message,
+            //     duration: 2,
+            // });
         })
 };
 

@@ -52,15 +52,16 @@ export const createCustomer = (amount, currency) => async dispatch => {
 
 export const createPaymentIntent = (amount, currency, customerId) => async (dispatch, getState) => {
 
-   amount = amount * 100
-   
+    amount = await amount == 0 ? 1* 100 : amount * 100
+    //    currency = "INR"
     dispatch({
         type: LOADING,
         payload: true,
     });
     // console.log("amt and cur : ", amount, currency) 
 
-    stripeHttp.post(`payment_intents?amount=${amount}&currency=${currency}&customer=${customerId}`)
+
+    stripeHttp.post(`payment_intents?amount=${amount}&currency=INR&customer=${customerId}`)
         .then(response => {
             if (response.data) {
                 dispatch({
@@ -76,10 +77,10 @@ export const createPaymentIntent = (amount, currency, customerId) => async (disp
                     duration: 2,
                 });
             } else {
-                // dispatch({
-                //     type: LOADING,
-                //     payload: false,
-                // });
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
                 // RNToasty.Info({
                 //     title: response.data.message,
                 //     duration: 2,
@@ -88,10 +89,10 @@ export const createPaymentIntent = (amount, currency, customerId) => async (disp
         })
         .catch(error => {
             console.log("create payment intent error : ", error)
-            // dispatch({
-            //     type: LOADING,
-            //     payload: false,
-            // });
+            dispatch({
+                type: LOADING,
+                payload: false,
+            });
             // if (error.response.data.message) {
             //     RNToasty.Error({
             //         title: error.response.data.message,
@@ -104,49 +105,48 @@ export const createPaymentIntent = (amount, currency, customerId) => async (disp
 
 
 export const confirmPaymentIntent = (payment_intent, payment_method) => async dispatch => {
-    console.log("payment_intent and payment_method : ", payment_intent, payment_method) 
+    console.log("payment_intent and payment_method : ", payment_intent, payment_method)
 
-     dispatch({
-         type: LOADING,
-         payload: true,
-     });
+    dispatch({
+        type: LOADING,
+        payload: true,
+    });
     //  {{server}}/v1/payment_intents/pi_3MxqAjSCc88vSVBk1yfw6Cqv_secret_7BKuI8nA7kG8LwE4IBm08I4Bm/confirm?payment_method=card
     //  stripeHttp.post(`payment_intents/${payment_intent}/confirm?payment_method=${payment_method}`)
     stripeHttp.post(`payment_intents/pi_1GszXG2eZvKYlo2CELvuyh4E/confirm?payment_method=pm_card_visa`)
-         .then(response => {
-             if (response.data) {
-                 dispatch({
-                     type: LOADING,
-                     payload: false,
-                 });
-                 RNToasty.Success({
-                     title: "Payment confirm successfully",
-                     duration: 2,
-                 });
-             } else {
-                 dispatch({
-                     type: LOADING,
-                     payload: false,
-                 });
-                 RNToasty.Info({
-                     title: response.data.message,
-                     duration: 2,
-                 });
-             }
-         })
-         .catch(error => {
-             console.log("confirm payment intent error : ", error.response.data)
-             dispatch({
-                 type: LOADING,
-                 payload: false,
-             });
-             if (error.response.data.message) {
-                 RNToasty.Error({
-                     title: error.response.data.message,
-                     duration: 2,
-                 });
-             }
- 
-         })
- };
- 
+        .then(response => {
+            if (response.data) {
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
+                RNToasty.Success({
+                    title: "Payment confirm successfully",
+                    duration: 2,
+                });
+            } else {
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
+                RNToasty.Info({
+                    title: response.data.message,
+                    duration: 2,
+                });
+            }
+        })
+        .catch(error => {
+            console.log("confirm payment intent error : ", error.response.data)
+            dispatch({
+                type: LOADING,
+                payload: false,
+            });
+            if (error.response.data.message) {
+                RNToasty.Error({
+                    title: error.response.data.message,
+                    duration: 2,
+                });
+            }
+
+        })
+};

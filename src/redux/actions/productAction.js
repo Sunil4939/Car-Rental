@@ -5,6 +5,8 @@ import http from "../../services/api";
 import RazorpayCheckout from "react-native-razorpay";
 import objectToFormData from "../../services/objectToFormData";
 import razorPay from "../../services/razorPay";
+import { createCustomer } from "./paymentAction";
+import { GetAllNotification } from "./notificationAction";
 
 export const FilterApi = (filterUrl, postData) => async dispatch => {
     dispatch({
@@ -173,37 +175,7 @@ export const SingleCarDataApi = (carId) => async dispatch => {
 };
 
 
-
-const handleRazorpay = (carData,currency, userDetails, navigation) => {
-    console.log("car book data : ", currency)
-    var options = {
-        currency: currency,
-        key: 'rzp_test_RgalfgmjSAdlNS',
-        amount: carData.price + "00",
-        // amount: carData.price,
-        name: 'Car Rental',
-        prefill: userDetails,
-
-        theme: { color: '#53a20e' }
-    }
-    RazorpayCheckout.open(options).then((data) => {
-        // handle success
-        // alert(`Success: ${data.razorpay_payment_id}`);
-        navigation.navigate("PaymentSuccess",{data: data, success: "success"} )
-        // const postData = {
-        //     transactionId: data.razorpay_payment_id,
-        //     status: "confirm"
-        // }
-        // dispatch(UpdateOrderApi(orderId, postData, navigation))
-    }).catch((error) => {
-        // handle failure
-        // console.log("error", error)
-        navigation.navigate("PaymentSuccess",{success: "failed"} )
-        // alert(`Error: ${error.code} | ${error.description}`);
-    })
-}
-
-export const StoreCarBookingApi = (postData,currency, userDetails, navigation) => async dispatch => {
+export const StoreCarBookingApi = (postData,amount, currency, navigation) => async dispatch => {
     dispatch({
         type: LOADING,
         payload: true,
@@ -219,10 +191,12 @@ export const StoreCarBookingApi = (postData,currency, userDetails, navigation) =
             "Content-Type": "multipart/form-data",
             "Content-Disposition": "form-data",
         },
-    } )
+    })
         .then(async response => {
             if (response.data.response) {
-                handleRazorpay(response.data.data,currency,userDetails, navigation)
+                dispatch(createCustomer(amount, currency))
+                navigation && navigation.navigate("Payment", {car_booking_id:response.data.data.id,  amount:amount})
+                // dispatch(GetAllNotification())
                 dispatch({
                     type: LOADING,
                     payload: false
@@ -307,5 +281,49 @@ export const UpdateCarBookingApi = (orderId, postData, navigation) => async disp
                 title: error.response.data.message,
                 duration: 2,
             });
+        })
+};
+
+export const DeleteCarImageApi = (carId) => async dispatch => {
+    dispatch({
+        type: LOADING,
+        payload: true,
+    });
+
+    http.post(`deleteimg?image_id=${imageId}&host_id=${hostId}`)
+        .then(response => {
+            if (response.data.response) {
+                // dispatch(SingleCarDataApi())
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
+                RNToasty.Success({
+                    title: "Delete car image successfully",
+                    duration: 2,
+                });
+            } else {
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
+            }
+        })
+        .catch(error => {
+            dispatch({
+                type: LOADING,
+                payload: false,
+            });
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
+
         })
 };

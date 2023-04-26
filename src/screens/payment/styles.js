@@ -6,6 +6,13 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: COLORS.white,
         alignItems: 'center',
+        // justifyContent: 'center',
+    },
+
+    btn_box: {
+        height: SIZES.height * .9,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
 

@@ -15,7 +15,7 @@ import { RNToasty } from 'react-native-toasty';
 import Loading1 from '../../component/atoms/Loading/Loading1';
 
 
-const YourCar = ({ navigation, loading,route, GetDistanceUnitApi, GetPriceListApi, countries, currencies, fuelList, distanceList, transmissionList, priceList }) => {
+const YourCar = ({ navigation, loading, GetDistanceUnitApi, GetPriceListApi, countries, currencies, fuelList, distanceList, transmissionList, priceList }) => {
 
     const country = ["Select your country", ...(countries ? Object.keys(countries) : null)]
     const currency = ["Select currency", ...(currencies ? Object.keys(currencies) : null)]
@@ -33,10 +33,8 @@ const YourCar = ({ navigation, loading,route, GetDistanceUnitApi, GetPriceListAp
     }, [])
     // console.log("oroeriio : ", route.params.carData)
 
-    const data = route.params.carData.carData
 
     const [postData, setPostData] = useState({
-        // ...route.params.carData,
         location: null,
         code: "",
         country_id: null,
@@ -52,30 +50,11 @@ const YourCar = ({ navigation, loading,route, GetDistanceUnitApi, GetPriceListAp
         distance: null,
         name: null,
         number_plate: null,
-        seat: null,
+        seat: "",
         fuel: null,
         airconditioned: null,
     })
-    // const [postData, setPostData] = useState({
-    //     location: null,
-    //     code: "",
-    //     country_id: null,
-    //     registration_number: "",
-    //     brand: null,
-    //     build_year: null,
-    //     odometer: null,
-    //     transmission: null,
-    //     color: null,
-    //     currency_id: null,
-    //     price: "",
-    //     additional_price: "",
-    //     distance: null,
-    //     name: null,
-    //     number_plate: null,
-    //     seat: null,
-    //     fuel: null,
-    //     airconditioned: null,
-    // })
+   
     const handleChange = (name, value) => {
         setPostData({
             ...postData,
@@ -104,7 +83,6 @@ const YourCar = ({ navigation, loading,route, GetDistanceUnitApi, GetPriceListAp
             {loading ?
                 <Loading1 />
                 :
-
                 <View style={styles.container}>
                     <StatusBar
                         backgroundColor={COLORS.light}
@@ -209,7 +187,8 @@ const YourCar = ({ navigation, loading,route, GetDistanceUnitApi, GetPriceListAp
                                         placeholder={"4 or 5"}
                                         keyboardType={"numeric"}
                                         required={false}
-                                        value={postData.seat}
+                                        maxLength={4}
+                                        value={String(postData.seat)}
                                         onChangeText={(text) => handleChange("seat", Number(text))}
                                     />
                                     <Dropdown

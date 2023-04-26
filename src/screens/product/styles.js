@@ -202,6 +202,19 @@ export default StyleSheet.create({
         color: COLORS.white,
     },
 
+    no_data_box: {
+        width: SIZES.width,
+        height: SIZES.height * .4,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    no_data: {
+        fontFamily: FONTS.semiBold,
+        fontSize: 30,
+        color: COLORS.black,
+    },
+
 
 
     bottomSheet: {

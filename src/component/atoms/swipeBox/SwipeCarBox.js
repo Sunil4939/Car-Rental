@@ -15,11 +15,10 @@ import { http2 } from '../../../services/api';
 import findAgoDays from '../../../services/findAgoDays';
 
 
-const SwipeCarBox = ({ source, brandName, buildYear,onPress, createdAt, isActive}) => {
+const SwipeCarBox = ({ source, brandName, buildYear, deletePress, editPress, createdAt, isActive }) => {
     // console.log("data: ", data)
     return (
         <TouchableOpacity style={styles.frontBox}
-        onPress={onPress}
         >
             <View style={styles.box}>
                 <View style={styles.row}>
@@ -51,7 +50,20 @@ const SwipeCarBox = ({ source, brandName, buildYear,onPress, createdAt, isActive
                         {/* <Text style={styles.active}>{toggle.includes(data.item.id) ? "Active" : "Inactive"}</Text> */}
                     </View>
                 </View>
-
+                <View style={{alignItems: 'flex-end', width: SIZES.width * .9}}>
+                <View style={styles.btnRow}>
+                    <TouchableOpacity style={styles.btn}
+                        onPress={editPress}
+                    >
+                        <Text style={styles.btnText}>Edit</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.btn}
+                        onPress={deletePress}
+                    >
+                        <Text style={styles.btnText}>Delete</Text>
+                    </TouchableOpacity>
+                </View>
+                </View>
             </View>
         </TouchableOpacity>
     );
@@ -109,18 +121,20 @@ SwipeCarBox.defaultProps = {
     buildYear: 2015,
     createdAt: "5day ago",
     isActive: false,
-    onPress: null,
+    deletePress: null,
+    editPress: null
 }
 
-HiddenSwipeBox.defaultProps = {
-   deletePress: null,
-}
+// HiddenSwipeBox.defaultProps = {
+//    deletePress: null,
+// }
 
+export default SwipeCarBox;
 
-export {
-    SwipeCarBox,
-    HiddenSwipeBox
-};
+// export {
+//     SwipeCarBox,
+//     HiddenSwipeBox
+// };
 
 const styles = StyleSheet.create({
     container: {
@@ -138,6 +152,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: SIZES.width * .05
     },
+
 
     box: {
         backgroundColor: COLORS.light,
@@ -250,7 +265,32 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: COLORS.black,
         marginLeft: 5,
-    }
+    },
+
+    btnRow: {
+        width: SIZES.width * .6,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: "space-around",
+    },
+
+
+    btn: {
+        width: SIZES.width * .23,
+        height: SIZES.height * .04,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.black,
+        borderRadius: 5,
+        marginBottom: SIZES.height * .012,
+    },
+
+    btnText: {
+        fontFamily: FONTS.medium,
+        fontSize: 12,
+        color: COLORS.white,
+        // marginBottom: -3,
+    },
 
 });
 

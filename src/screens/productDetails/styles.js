@@ -648,4 +648,22 @@ export default StyleSheet.create({
         marginVertical: SIZES.height * .02,
     },
 
+    btn_style: {
+        width: SIZES.width * .9,
+        marginBottom: SIZES.height * .02,
+    },
+
+    no_data_box: {
+        width: SIZES.width * .9,
+        marginBottom: SIZES.height * .02,
+        // height: SIZES.height * .4,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+    },
+
+    no_data: {
+        fontFamily: FONTS.semiBold,
+        fontSize: 18,
+        color: COLORS.black,
+    },
 })

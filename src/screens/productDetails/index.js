@@ -1,5 +1,5 @@
 import { View, Text, StatusBar, ScrollView, TouchableOpacity, TextInput, FlatList, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './styles'
 import { COLORS, SIZES, images, dummyData, icons } from '../../constants'
 import Icons from '../../component/atoms/Icons'
@@ -17,6 +17,8 @@ import SwitchToggle from 'react-native-switch-toggle'
 import { BottomSheet } from 'react-native-btr'
 import filterImageObjectToArray from '../../services/filterImageObjectToArray'
 import { RNToasty } from 'react-native-toasty'
+import { createCustomer } from '../../redux/actions/paymentAction'
+import { StoreCarBookingApi } from '../../redux/actions/productAction'
 
 
 
@@ -145,26 +147,36 @@ const SelectTrip = ({ style, placeholderDate, label, placeholderTime, onChangeDa
   )
 }
 
-const ProductDetails = ({ navigation, route,token, loading }) => {
+const ProductDetails = ({ navigation, createCustomer, StoreCarBookingApi, route, token, loading, }) => {
   const singleCarData = route.params && route.params.carData;
   // let slider = [images.car1, images.car2, images.car3, images.car4]
   let sliderImages = filterImageObjectToArray(singleCarData.image);
 
-   console.log("singleCarData : ", singleCarData);
-  const data = route.params.carData && route.params.carData.location
+  //  console.log("singleCarData : ", singleCarData);
+  const data = route.params && route.params.carData && route.params.carData.location
 
 
-  const [visible, setVisible] = useState(false) 
+  const [visible, setVisible] = useState(false)
   const [checkout, setCheckout] = useState(false)
+  let date , time;
 
-  let d = new Date()
-  let time = formatAMPM(d)
-  let month = String(d.getMonth() + 1).length == 1 ? `0${(d.getMonth() + 1)}` : `${(d.getMonth() + 1)}`
-  let date = String(d.getDate()).length == 1 ? `0${d.getDate()}` : `${d.getDate()}`
-  date = `${date}-${month}-${d.getFullYear()}`
 
-  // console.log("single car data : ", data.location)
+  useEffect(() => {
+    let d = new Date()
+     time = formatAMPM(d)
+    let month = String(d.getMonth() + 1).length == 1 ? `0${(d.getMonth() + 1)}` : `${(d.getMonth() + 1)}`
+     date = String(d.getDate()).length == 1 ? `0${d.getDate()}` : `${d.getDate()}`
+    date = `${date}-${month}-${d.getFullYear()}`
+ 
+    setPostData({
+      "startDate": date,
+      "endDate": date,
+      "startTime": time,
+      "endTime": time,
+    })
+  },[])
 
+  // console.log("single car data : ", singleCarData && singleCarData.car_rating) 
 
   const [postData, setPostData] = useState({
     startDate: date,
@@ -172,6 +184,18 @@ const ProductDetails = ({ navigation, route,token, loading }) => {
     startTime: time,
     endTime: time,
   })
+
+  useEffect(() => {
+    setPostData({
+      "carPrice": data.price,
+      "locations": data.location,
+      "carPriceDurationId": data.price_duration_id,
+      "currencyId": data.currency_id,
+      "carId": data.car_id,
+      "distanceAllowed": data.distance,
+      "distanceUnitId": data.distance_unit_id
+    })
+  },[])
 
   const handleChange = (name, value) => {
     setPostData({
@@ -181,15 +205,18 @@ const ProductDetails = ({ navigation, route,token, loading }) => {
   }
 
   const handleCarBook = () => {
-    if(token){
+    console.log("ksdljfas")
+    if (token) {
       setCheckout(!checkout)
-    }else{
+    } else {
       RNToasty.Normal({
         title: 'Please Login first',
         duration: 2
       })
     }
   }
+
+  // console.log("loading: ", loading)
   return (
     <>
       {loading ?
@@ -262,26 +289,34 @@ const ProductDetails = ({ navigation, route,token, loading }) => {
                 </View>
 
                 {/* features  */}
-                <View style={styles.featuresContainer}>
-                  <Text style={styles.title}>Features</Text>
-                  <View style={styles.featuresBox}>
-                    <FlatList
-                      data={dummyData.Feature}
-                      renderItem={({ item }) => (
-                        <View style={styles.featureRow} key={item.id}>
-                          <View style={styles.featureIcon}>
-                            <Icons name={item.icon} size={10} color={COLORS.white} />
+                {singleCarData && singleCarData.features[0] ?
+                  <View style={styles.featuresContainer}>
+                    <Text style={styles.title}>Features</Text>
+                    <View style={styles.featuresBox}>
+                      <FlatList
+                        data={singleCarData.features}
+                        renderItem={({ item }) => (
+                          <View style={styles.featureRow} key={item.id}>
+                            
+                            {/* <View style={styles.featureIcon}>
+                             
+                              <Icons name={item.icon} size={10} color={COLORS.white} />
+                            </View> */}
+                            <Text style={styles.featureText}>{item.feature}</Text>
                           </View>
-                          <Text style={styles.featureText}>{item.feature}</Text>
-                        </View>
-                      )}
-                      key={item => item.id}
-                      numColumns={2}
-                      showsVerticalScrollIndicator={false}
-                    />
+                        )}
+                        key={item => item.id}
+                        numColumns={2}
+                        showsVerticalScrollIndicator={false}
+                      />
 
+                    </View>
                   </View>
-                </View>
+                  :
+                  <View style={styles.no_data_box}>
+                    <Text style={styles.no_data}>No Features Available</Text>
+                  </View>
+                }
 
                 {/* description */}
                 <View style={styles.descriptionBox}>
@@ -368,7 +403,35 @@ const ProductDetails = ({ navigation, route,token, loading }) => {
                 <View style={styles.hr_line1} />
 
                 {/* rating and review box */}
-                <View style={styles.ratingContainer}>
+                {/* {singleCarData && singleCarData.car_rating[0] ?
+                    <View style={styles.rating_card_container}>
+                    <FlatList
+                      data={dummyData.RatingCard}
+                      renderItem={({ item }) => (
+                        <ReviewCard
+                          source={item.source}
+                          name={item.name}
+                          rating={item.rating}
+                          message={item.text}
+                          date={item.date}
+                        />
+                      )}
+                      key={item => item.id}
+                      horizontal={true}
+                      showsVerticalScrollIndicator={false}
+                    />
+                    <View style={{ width: SIZES.width * .94, alignItems: 'flex-end' }}>
+                      <TouchableOpacity style={styles.readMoreBtn}>
+                        <Text style={styles.readMoreText}>See All Reviews</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  :
+                  <View style={styles.no_data_box}>
+                    <Text style={styles.no_data}>No Car Ratings Available</Text>
+                  </View>
+                } */}
+                {/* <View style={styles.ratingContainer}>
                   <Text style={styles.ratingTitle}>Ratings and Reviews </Text>
                   <View style={styles.rating_title_row}>
                     <Text style={styles.rating_title1}>5.0</Text>
@@ -381,32 +444,11 @@ const ProductDetails = ({ navigation, route,token, loading }) => {
                   <RatingRow text={"Convenience"} rating={"4.8"} />
                   <RatingRow text={"Lisitng Accuracy"} rating={"5.0"} />
                   <Text style={styles.rating_text1}>Baser on 33 guest ratings</Text>
-                </View>
+                </View> */}
 
                 {/* rating card container */}
-                <View style={styles.rating_card_container}>
-                  <FlatList
-                    data={dummyData.RatingCard}
-                    renderItem={({ item }) => (
-                      <ReviewCard
-                        source={item.source}
-                        name={item.name}
-                        rating={item.rating}
-                        message={item.text}
-                        date={item.date}
-                      />
-                    )}
-                    key={item => item.id}
-                    horizontal={true}
-                    showsVerticalScrollIndicator={false}
-                  />
-                  <View style={{ width: SIZES.width * .94, alignItems: 'flex-end' }}>
-                    <TouchableOpacity style={styles.readMoreBtn}>
-                      <Text style={styles.readMoreText}>See All Reviews</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-                <View style={styles.hr_line1} />
+
+                {/* <View style={styles.hr_line1} /> */}
 
                 {/* hosted container */}
                 <View style={styles.hostContainer}>
@@ -560,16 +602,26 @@ const ProductDetails = ({ navigation, route,token, loading }) => {
 
                 {/* button container */}
                 <View style={styles.buttonBox}>
+                 
                   <Button1 backgroundColor={COLORS.black} textColor={COLORS.white}
-                  onPress={handleCarBook}
-                    // onPress={() => navigation.navigate("CheckOut", { data: postData, carData: singleCarData })}
+                    onPress={handleCarBook}
+                    style={styles.btn_style}
+                  // onPress={() => navigation.navigate("CheckOut", { data: postData, carData: singleCarData })}
                   >
                     Book Now
                   </Button1>
+                  {!token &&
+                    <Button1 backgroundColor={COLORS.white} textColor={COLORS.black}
+                      onPress={() => navigation.navigate("Login")}
+                      style={styles.btn_style}
+                    >
+                      Login
+                    </Button1>
+                  }
                 </View>
 
-                  {/* bottom sheet */}
-                  <BottomSheet
+                {/* bottom sheet */}
+                <BottomSheet
                   visible={checkout}
                   onBackButtonPress={() => setCheckout(!checkout)}
                   onBackdropPress={() => setCheckout(!checkout)}
@@ -612,9 +664,7 @@ const ProductDetails = ({ navigation, route,token, loading }) => {
 
                         <Button1 style={styles.btn}
                           backgroundColor={COLORS.black} textColor={COLORS.white}
-                          // onPress={() => { setVisible(!visible), StoreCarBookingApi(postData,data.currency.short_code, userDetails, navigation) }}
-                        onPress={() => { setCheckout(!checkout)}}
-                        // onPress={() => { setVisible(!visible), CreateSessionId(postData, {amount: (Number(data.price) + Number(data.additional_price))}, navigation)}}
+                          onPress={() => { setCheckout(!checkout), StoreCarBookingApi(postData, (Number(data.price) + Number(data.additional_price)), "INR",navigation ) }}
                         >
                           Process To Check Out
                         </Button1>
@@ -632,6 +682,7 @@ const ProductDetails = ({ navigation, route,token, loading }) => {
   )
 }
 
+
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   loading: state.product.loading,
@@ -639,7 +690,11 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-
+  createCustomer,
+  StoreCarBookingApi
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails)
+
+
+

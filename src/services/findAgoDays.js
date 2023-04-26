@@ -1,10 +1,11 @@
 export default (date) => {
     const d = new Date()
     // console.log("date : ", date)
+
     let month = d.getMonth() + 1 ;
     let day = d.getDate();
     let year = d.getFullYear();
-    // console.log("date : ", month)
+    // console.log("date : ", day)
 
 
     //   date = date.split("/")

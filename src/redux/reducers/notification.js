@@ -1,24 +1,18 @@
-import { LOADING, BOOKING_DATA, BOOKING_HISTORY } from "../types";
+import { LOADING,  NOTIFICATION } from "../types";
 
 const initialState = {
     loading: false,
-    bookingData: null,
-    bookingHistory: null
+    notification: null
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case BOOKING_DATA:
+        case NOTIFICATION:
             return {
                 ...state,
-                bookingData: action.payload
+                notification: action.payload
             }
-            case BOOKING_HISTORY:
-                return {
-                    ...state,
-                    bookingHistory: action.payload
-                }
-               
+           
             case LOADING:
                 return {
                     ...state,

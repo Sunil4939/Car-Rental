@@ -60,6 +60,7 @@ const CheckOut = ({ navigation, route, loading, userData,CreateSessionId, StoreC
     latitudeDelta: 0.001,
     longitudeDelta: 0.001,
   });
+  
   const handlePickLocation = () => {
     Geolocation.getCurrentPosition((pos) => {
       const crd = pos.coords;

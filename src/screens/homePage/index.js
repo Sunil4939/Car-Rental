@@ -19,7 +19,7 @@ const HomePage = ({ navigation, token, userData,AllCarListApi, allCarList,Single
 
   const topCars = allCarList && allCarList.filter(item => item.location.price > 50)
 
-  // console.log("car list home : ", allCarList)
+  // console.log("car list home : ", token)
 
   return (
     <View style={styles.container}>
@@ -105,7 +105,7 @@ const HomePage = ({ navigation, token, userData,AllCarListApi, allCarList,Single
               source={{uri: http2 + item.image.front}}
               price={item.location.currency.symbol +item.location.price}
               carName={item.brand}
-              // onPress={() => { navigation.navigate("ProductDetails", { carData: item }) }}
+              onPress={() => { navigation.navigate("ProductDetails", { carData: item }) }}
               // onPress={() => { SingleCarDataApi(item.id), navigation.navigate("ProductDetails") }}
               />
             )}
@@ -131,6 +131,7 @@ const HomePage = ({ navigation, token, userData,AllCarListApi, allCarList,Single
                   price={item.location.currency.symbol +item.location.price}
                   carName={item.brand}
                   start={item.location.location}
+                  onPress={() => { navigation.navigate("ProductDetails", { carData: item }) }}
                   // onPress={() => { navigation.navigate("ProductDetails", { carData: item }) }}
                 />
               ))}

@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { COLORS, SIZES, dummyData, icons, images } from "../../constants";
 import HeaderLeft from "../../component/atoms/HeaderLeft";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { ShowAllBookingApi } from "../../redux/actions/bookingAction";
+import { BookingHistoryApi, ShowAllBookingApi } from "../../redux/actions/bookingAction";
 import { useEffect } from "react";
 import formatDate from "../../services/date";
 import LoginBox from "../../component/atoms/LoginBox";
@@ -64,25 +64,16 @@ const Tab = createMaterialTopTabNavigator();
 const Booked = ({ navigation, }) => {
   const dispatch = useDispatch()
 
-  // const customerData = useSelector(state => state.payment.customerData)
-
   const createPaymentSheet = async (amount, currency) => {
-    // console.log("amt, andkf cur : ", amount, currency, customerData && customerData.id)
     dispatch(createCustomer(amount, currency))
-    // if (customerData) {
-    //   dispatch(createPaymentIntent(amount, currency, customerData && customerData.id))
-    // }
   }
   const bookingData = useSelector(state => state.booking.bookingData)
   const loading = useSelector(state => state.booking.loading)
-  // console.log("booking data : ", bookingData && bookingData[0])
+  // console.log("booking data : ", bookingData && bookingData[2])
   return (
     <>
       {loading ?
         <Loading1 />
-        // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.white }}>
-        //   <ActivityIndicator size={40} color={COLORS.black} />
-        // </View>
         :
         bookingData ?
           <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -97,8 +88,9 @@ const Booked = ({ navigation, }) => {
                     bookingId={item.booking_id}
                     price={"$" + item.price}
                     bookingStatus={item.booking_status.status}
-                    paymentPress={() => {  createPaymentSheet(item.price, "USD"), navigation.navigate("Payment")}}
-                  // onPress={() => navigation.navigate("Product")}
+                    showRetryPayment={item.booking_status.status == "Pending" ? true : false}
+                    paymentPress={() => { createPaymentSheet(item.price, "USD"), navigation.navigate("Payment",{ car_booking_id: item.id, amount:item.price} ) }}
+                    onPress={() => navigation.navigate("TripDetails", {data: item})}
                   />
                 </View>
               ))}
@@ -113,26 +105,28 @@ const Booked = ({ navigation, }) => {
 
 
 const History = () => {
-  const dispatch = useDispatch()
+
   const loading = useSelector(state => state.booking.loading)
-  const history = dummyData.Booked
+  const bookingHistory = useSelector(state => state.booking.bookingHistory)
   return (
     <>
       {loading ?
         <Loading1 />
         :
-        !history ?
+        bookingHistory ?
           <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <View style={styles.container1}>
-              {history && history.map((item) => (
+              {bookingHistory && bookingHistory.map((item) => (
                 <View style={styles.listBox} key={item.id}>
-                  <TripBox
-                    source={item.source}
-                    time={item.time}
-                    currentLocation={item.currentLocation}
-                    startTrip={item.startTrip}
-                    endTrip={item.endTrip}
-                    price={item.price}
+                  <BookedCar
+                    source={item.car && item.car.image ? { uri: http2 + item.car.image.front } : images.car2}
+                    brand={item.car && item.car.brand}
+                    carName={item.car && item.car.name}
+                    date={item.booking_date}
+                    bookingId={item.booking_id}
+                    price={"$" + item.price}
+                    bookingStatus={item.booking_status.status}
+                  // onPress={() => navigation.navigate("Product")}
                   />
                 </View>
               ))}
@@ -145,9 +139,10 @@ const History = () => {
   );
 }
 
-const TripPage = ({ navigation, ShowAllBookingApi, token }) => {
+const TripPage = ({ navigation, ShowAllBookingApi, BookingHistoryApi, token }) => {
   useEffect(() => {
     ShowAllBookingApi()
+    BookingHistoryApi()
   }, [])
 
   return (
@@ -185,10 +180,12 @@ const mapStateToProps = (state) => ({
   loading: state.booking.loading,
   bookingData: state.booking.bookingData,
   token: state.auth.token,
+  bookingHistory: state.booking.bookingHistory,
 })
 
 const mapDispatchToProps = {
   ShowAllBookingApi,
+  BookingHistoryApi,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TripPage)

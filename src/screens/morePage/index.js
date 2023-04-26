@@ -52,11 +52,11 @@ const MorePage = ({ LogoutApi, navigation, userData, token, GetUserDataApi }) =>
                 <View style={styles.rightBox}>
                     <Image source={images.image1} style={styles.image} resizeMode={"contain"} />
                 </View>
-            </View>
+            </View> 
             <View style={{ marginVertical: SIZES.height * .02 }}>
                 <NavigateButton iconName={"account"}
                     iconStyle={styles.account}
-                    onPress={() => navigation.navigate("EditHostProfile")}
+                    // onPress={() => navigation.navigate("EditHostProfile")}
                 >
                     Account
                 </NavigateButton>
@@ -68,7 +68,7 @@ const MorePage = ({ LogoutApi, navigation, userData, token, GetUserDataApi }) =>
                 }
                 <NavigateButton iconName={"contact"}
                     iconStyle={styles.account}
-                    onPress={() => navigation.navigate("EditProfile")}
+                    // onPress={() => navigation.navigate("EditProfile")}
                     >
                     Contact Support
                 </NavigateButton>

@@ -9,7 +9,7 @@ import { LogoutApi } from '../../redux/actions/authAction';
 import { GetVendorApi } from '../../redux/actions/vendorGetApi';
 
 
-const Terms = ({ navigation, LogoutApi,route, GetVendorApi }) => {
+const Terms = ({ navigation, LogoutApi, GetVendorApi }) => {
     useEffect(() => {
         GetVendorApi()
     }, [])
@@ -45,7 +45,7 @@ const Terms = ({ navigation, LogoutApi,route, GetVendorApi }) => {
                     <Text style={[styles.blueText, { position: 'absolute', left: 0 }]}>Non discriminations of policy</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("YourCar", {carData: route.params ? route.params : null})}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("YourCar")}>
                     <Text style={styles.buttonText}>Agree</Text>
                 </TouchableOpacity>
             </View>

@@ -28,6 +28,31 @@ export default StyleSheet.create({
         color: COLORS.black,
     },
 
+    title2: {
+        fontFamily: FONTS.semiBold,
+        fontSize: 22,
+        color: COLORS.black,
+        marginVertical: SIZES.height * .02,
+    },
+
+    del_btn: {
+        width: SIZES.width * .1,
+        height: SIZES.height * .05,
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.lightGray,
+        position: 'absolute',
+        top: 0,
+        right: 0,
+    },
+
+    del: {
+        width: SIZES.width * .05,
+        height: SIZES.height * .025,
+        tintColor: COLORS.black,
+    },
+
     progressBar: {
         marginTop: SIZES.height * .01,
         borderRadius: 20,
@@ -46,7 +71,15 @@ export default StyleSheet.create({
         fontSize: 14,
         lineHeight: 18,
         color: COLORS.black,
-        marginVertical: SIZES.height * .025,
+        marginBottom: SIZES.height * .02,
+    },
+
+    label: {
+        fontFamily: FONTS.regular,
+        fontSize: 14,
+        lineHeight: 18,
+        color: COLORS.black,
+        marginBottom: 5,
     },
 
     blueText: {
@@ -102,7 +135,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginTop: SIZES.height * .02,
+        marginVertical: SIZES.height * .02,
     },
 
     box1: {
@@ -117,8 +150,10 @@ export default StyleSheet.create({
         marginBottom: 5,
     },
 
+    
+
     profileImgBox: {
-        width: SIZES.width * .9,
+        width: SIZES.width * .42,
         height: SIZES.height * .2,
         borderWidth: 1,
         borderColor: "#333333",
@@ -129,10 +164,12 @@ export default StyleSheet.create({
     },
 
     text1: {
+        width: SIZES.width * .35,
         fontFamily: FONTS.regular,
-        fontSize: 14,
-        lineHeight: 18,
+        fontSize: 12,
+        lineHeight: 16,
         color: "#333333",
+        textAlign: 'center',
     },
 
     redText: {
@@ -140,7 +177,7 @@ export default StyleSheet.create({
         fontSize: 12,
         lineHeight: 15,
         color: "#ff0000",
-        marginVertical: SIZES.height * .01,
+        // marginVertical: SIZES.height * .01,
     },
 
     profileImg: {
@@ -155,9 +192,10 @@ export default StyleSheet.create({
         // justifyContent: 'space-between',
     },
 
-    featureContainer: {
+    photoBox: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-between',
         flexWrap: 'wrap',
     },
 

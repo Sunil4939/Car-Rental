@@ -22,8 +22,8 @@ const TextBox = ({ iconName, iconStyle, title, children }) => {
 }
 
 
-const SearchPage = ({ navigation, loading, searchData, SearchCarApi }) => {
-  // console.log("search data : ", searchData)
+const SearchPage = ({ navigation, token, loading, searchData, SearchCarApi }) => {
+  // console.log("search data : ", token)
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -38,7 +38,7 @@ const SearchPage = ({ navigation, loading, searchData, SearchCarApi }) => {
         <View style={styles.searchBox}>
           <TouchableOpacity style={styles.search}
           //  onPress={() => navigation.navigate("SearchScreen")}
-            onPress={() => navigation.navigate("Product")}
+            onPress={() => navigation.navigate(token ? "Product" : "SearchScreen")}
           >
             <Icons name={"search"} size={20} color={COLORS.black} style={styles.searchIcon} />
             <TextInput placeholder={"City, Airport, Address or Hotel"}
@@ -110,6 +110,7 @@ const SearchPage = ({ navigation, loading, searchData, SearchCarApi }) => {
 
 const mapStateToProps = (state) => ({
   loading: state.search.loading,
+  token: state.auth.token,
   searchData: state.search.searchData,
 })
 
@@ -118,3 +119,4 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage)
+

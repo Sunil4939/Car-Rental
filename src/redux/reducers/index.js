@@ -6,6 +6,7 @@ import search from "./search";
 import booking from "./booking";
 import home from "./home";
 import payment from "./payment";
+import notification from "./notification";
 
 
 
@@ -18,4 +19,5 @@ export default combineReducers ({
     booking,
     home,
     payment,
+    notification,
 })

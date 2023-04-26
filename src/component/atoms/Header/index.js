@@ -3,10 +3,14 @@ import React, { useState } from 'react'
 import { COLORS, FONTS, icons, images, SIZES } from '../../../constants';
 import Modal from 'react-native-modal'
 import { useSelector } from 'react-redux';
+import { http2 } from '../../../services/api';
 
 const Header = ({ onPress, source }) => {
     const [isModalVisible, setModalVisible] = useState(false);
-    const userData = useSelector(state => state.auth.userData)
+    let userData = useSelector(state => state.auth.userData)
+    userData = userData && userData[0]
+
+    // console.log("user data : ", userData)
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -22,9 +26,9 @@ const Header = ({ onPress, source }) => {
                 // onPress={onPress}
                 // onPress={() => setModalVisible(!isModalVisible)}
                 >
-                    {userData ?
+                    {userData  ?
                         <Image
-                            source={userData && userData.profile_image ? { uri: http2 + userData.profile_image } : source}
+                            source={ userData.profile && userData.profile.profile_image ? { uri: http2 + userData.profile && userData.profile.profile_image } : source}
                             style={styles.profileImg}
                             resizeMode="contain"
                         />

@@ -32,8 +32,10 @@ import CheckOut from '../../screens/checkOut';
 import ApprovedDrive from '../../screens/approvedDrive';
 import HomePage from '../../screens/homePage';
 import EditHostProfile from '../../screens/editHostProfile'
-import StripePayment from '../../screens/StripePayment';
 import AddCarList from '../../screens/AddCarList';
+import UpdateCar from '../../screens/UpdateCar'
+import TripDetails from '../../screens/TripDetails';
+import PaymentFailed from '../../screens/PaymentFailed';
 
 
 const Stack = createStackNavigator();
@@ -75,6 +77,7 @@ const HomeStack = ({ navigation, route }) => {
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         })} />
       <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="PaymentFailed" component={PaymentFailed} />
     </Stack.Navigator>
   );
 }
@@ -101,6 +104,7 @@ const LocationStack = ({ navigation, route }) => {
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         })} />
       <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="PaymentFailed" component={PaymentFailed} />
     </Stack.Navigator>
   );
 }
@@ -129,7 +133,7 @@ const SearchStack = ({ navigation, route }) => {
         })} />
       <Stack.Screen name="Payment" component={Payment} />
       <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
-      <Stack.Screen name="StripePayment" component={StripePayment} />
+      <Stack.Screen name="PaymentFailed" component={PaymentFailed} />
     </Stack.Navigator>
   );
 }
@@ -150,6 +154,7 @@ const AddCarStack = ({ navigation, route }) => {
       <Stack.Screen name="Location" component={Location} />
       <Stack.Screen name="ChooseTrip" component={ChooseTrip} />
 
+      <Stack.Screen name="UpdateCar" component={UpdateCar} />
       <Stack.Screen name="Terms" component={Terms} />
       <Stack.Screen name="YourCar" component={YourCar} />
       <Stack.Screen name="CarProfile" component={CarProfile} />
@@ -172,6 +177,7 @@ const AddCarStack = ({ navigation, route }) => {
         })} />
       <Stack.Screen name="Payment" component={Payment} />
       <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="PaymentFailed" component={PaymentFailed} />
     </Stack.Navigator>
   );
 }
@@ -215,6 +221,7 @@ const FavoriteStack = ({ navigation, route }) => {
         })} />
       <Stack.Screen name="Payment" component={Payment} />
       <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="PaymentFailed" component={PaymentFailed} />
     </Stack.Navigator>
   );
 }
@@ -226,11 +233,13 @@ const TripStack = ({ navigation, route }) => {
   }, [route])
   return (
     <Stack.Navigator
+    // initialRouteName='TripDetails'
       screenOptions={() => ({
         headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       })} >
       <Stack.Screen name="TripPage" component={TripPage} />
+      <Stack.Screen name="TripDetails" component={TripDetails} />
 
       <Stack.Screen name="Product" component={Product} />
       <Stack.Screen name="ProductDetails" component={ProductDetails}
@@ -238,8 +247,8 @@ const TripStack = ({ navigation, route }) => {
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         })} />
       <Stack.Screen name="Payment" component={Payment} />
-      <Stack.Screen name="StripePayment" component={StripePayment} />
       <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="PaymentFailed" component={PaymentFailed} />
     </Stack.Navigator>
   );
 }
@@ -258,6 +267,7 @@ const InboxStack = ({ navigation, route }) => {
       <Stack.Screen name="InboxPage" component={InboxPage} />
       <Stack.Screen name="Payment" component={Payment} />
       <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="PaymentFailed" component={PaymentFailed} />
     </Stack.Navigator>
   );
 }

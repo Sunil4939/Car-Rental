@@ -45,6 +45,7 @@ const SearchScreen = ({ navigation, SearchCarApi, searchData, loading }) => {
                             carName={item.name.length > 10 ? item.name.slice(0, 10) + "..." : item.name}
                             fuelType={item.fuel}
                             transmision={item.transmission}
+                            onPress={() => { navigation.navigate("ProductDetails", { carData: item }) }}
                         />
                     )}
                     key={item => item.id}

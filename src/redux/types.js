@@ -29,9 +29,13 @@ export const SINGLE_CAR_DATA = "SINGLE_CAR_DATA"
 // booking
 export const BOOKING_DATA = "BOOKING_DATA"
 export const SESSION_ID = "SESSION_ID"
+export const BOOKING_HISTORY = "BOOKING_HISTORY"
 
 // home
 export const All_CAR_LIST = "All_CAR_LIST"
+
+// home
+export const NOTIFICATION = "NOTIFICATION"
 
 // payment
 export const PAYMENT_INTENT = "PAYMENT_INTENT"

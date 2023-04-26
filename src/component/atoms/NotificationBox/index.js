@@ -1,18 +1,26 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { COLORS, FONTS, SIZES, icons, images } from '../../../constants'
+import formatDate from '../../../services/date'
 
-const BookedCar = ({ source, carName, brand, showRetryPayment, bookingStatus, date, bookingId, paymentPress, onPress }) => {
+const NotificationBox = ({ source, pickup, drop, location, price, carName, brand, date, bookingId, onPress, customer_name }) => {
     return (
         <TouchableOpacity style={styles.tripBox} onPress={onPress}>
             <View style={styles.carImgBox}>
                 <Image source={source} resizeMode="contain" style={styles.carImg} />
             </View>
             <View style={styles.textBox}>
-                <View style={styles.row}>
+                {customer_name &&
+                    <View style={styles.row}>
+                        <Text style={styles.label}>Customer Name : </Text>
+                        <Text style={styles.text}>{customer_name}</Text>
+                    </View>
+                }
+
+                {/* <View style={styles.row}>
                     <Text style={styles.label}>Brand : </Text>
                     <Text style={styles.text}>{brand ? brand : "Honda"}</Text>
-                </View>
+                </View> */}
                 <View style={styles.row}>
                     <Text style={styles.label}>Car Name : </Text>
                     <Text style={styles.text}>{carName ? carName : "Blitz"}</Text>
@@ -23,42 +31,43 @@ const BookedCar = ({ source, carName, brand, showRetryPayment, bookingStatus, da
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={styles.label}>Booking On : </Text>
+                    <Text style={styles.label}>Booking Date : </Text>
                     <Text style={styles.text}>{date}</Text>
                 </View>
                 <View style={styles.row}>
-                    <Text style={styles.label}>Booking Status : </Text>
-                    <Text style={{ ...styles.text, color: bookingStatus == "Booked" ? "#00B200" : bookingStatus == "Pending" ? "#F7C021" : "#FF0000" }}>{bookingStatus}</Text>
+                    <Text style={styles.label}>Booking Amount : </Text>
+                    <Text style={styles.text}>{price}</Text>
                 </View>
-                {showRetryPayment &&
-                    <View style={styles.rightBox}>
-                        {/* {bookingStatus == "Pending" && */}
-                            <TouchableOpacity style={{ alignItems: 'flex-start' }}
-                                onPress={paymentPress}
-                            >
-                                <Text style={styles.retry}>Retry Payment</Text>
-                            </TouchableOpacity>
-                        {/* } */}
-                    </View>
-                }
+                <View style={styles.row}>
+                    <Text style={styles.label}>Location : </Text>
+                    <Text style={styles.text}>{location}</Text>
+                </View>
+                {/* <View style={styles.row}>
+                    <Text style={styles.label}>Pick Up : </Text>
+                    <Text style={styles.text}>{pickup}</Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.label}>Drop : </Text>
+                    <Text style={styles.text}>{drop}</Text>
+                </View> */}
             </View>
         </TouchableOpacity>
     )
 }
 
-BookedCar.defaultProps = {
+NotificationBox.defaultProps = {
     source: images.car1,
-    bookingStatus: "Pending",
     date: "",
     bookingId: "",
     brand: "Honda",
     onPress: null,
     carName: "swift",
-    paymentPress: null,
-    showRetryPayment: false,
+    pickup: null,
+    drop: null,
+    customer_name: null
 }
 
-export default BookedCar;
+export default NotificationBox;
 
 const styles = StyleSheet.create({
     tripBox: {

@@ -32,8 +32,6 @@ const DateButton = ({ placeholder, onChangeValue, value }) => {
     // setDate(formatDate(currentDate))
     let month = String(currentDate.getMonth() + 1).length == 1 ? `0${(currentDate.getMonth() + 1)}` : `${(currentDate.getMonth() + 1)}`
     let d = String(currentDate.getDate()).length == 1 ? `0${currentDate.getDate()}` : `${currentDate.getDate()}`
-    // console.log(`${currentDate.getFullYear()}-${month}-${d}`)
-    // onChangeValue && onChangeValue(`${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()} `)
     onChangeValue && onChangeValue(`${d}-${month}-${currentDate.getFullYear()}`)
     // console.log("currentDate: ", `${currentDate.getFullYear()}-${month}-${d}`)
   }
@@ -120,56 +118,6 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
   const [brand, setBrand] = useState('')
   const [years, setYears] = useState('')
 
-  const handleColor = (value) => {
-    let arr = [...color]
-    if (arr.includes(value)) {
-      arr.splice(color.indexOf(value), 1)
-    } else {
-      arr.push(value)
-    }
-    setColor(arr)
-  }
-
-  const handleFuel = (value) => {
-    let arr = [...fuelType]
-    if (arr.includes(value)) {
-      arr.splice(fuelType.indexOf(value), 1)
-    } else {
-      arr.push(value)
-    }
-    setFuelType(arr)
-  }
-
-  const handleTransmision = (value) => {
-    let arr = [...transmission]
-    if (arr.includes(value)) {
-      arr.splice(transmission.indexOf(value), 1)
-    } else {
-      arr.push(value)
-    }
-    setTransmission(arr)
-  }
-
-  const handleBrand = (value) => {
-    let arr = [...brand]
-    if (arr.includes(value)) {
-      arr.splice(brand.indexOf(value), 1)
-    } else {
-      arr.push(value)
-    }
-    setBrand(arr)
-  }
-
-  const handleYear = (value) => {
-    let arr = [...years]
-    if (arr.includes(value)) {
-      arr.splice(years.indexOf(value), 1)
-    } else {
-      arr.push(value)
-    }
-    setYears(arr)
-  }
-
   const resetFilter = () => {
     setPostData({
       fuelType: null,
@@ -184,10 +132,7 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
 
   const handleFilter = () => {
     const filterUrl = `search_car?&brandFilter=${postData.brand}&yearFilter=${postData.years}&${postData.transmission}Filter=${postData.transmission}&${postData.fuelType}Filter=${postData.fuelType}`
-    // const filterUrl = `search_car?&brandFilter=${brand}&yearFilter=${years}&${transmission}Filter=${transmission}&${fuelType}Filter=${fuelType}`
-    // const filterUrl = `filter_car?page=1&brandFilter=${brand}&yearFilter=${years}&${transmission}Filter=${transmission}&${fuelType}Filter=${fuelType}`
-
-    console.log("guguo ", filterUrl)
+    // console.log("guguo ", filterUrl)
     FilterApi(filterUrl, postData)
   }
 
@@ -262,26 +207,31 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
               Search
             </Button1>
           </View>
-
-          <View style={styles.carListBox}>
-            <FlatList
-              data={filterData}
-              renderItem={({ item }) => (
-                <CarRent
-                  source={{ uri: http2 + item.image.front }}
-                  price={item.location.currency.symbol + item.location.price}
-                  carName={item.name.length > 10 ? item.name.slice(0, 10) + "..." : item.name}
-                  fuelType={item.fuel}
-                  transmision={item.transmission}
-                  onPress={() => { navigation.navigate("ProductDetails", { carData: item }) }}
-                // onPress={() => { SingleCarDataApi(item.id), navigation.navigate("ProductDetails") }}
-                />
-              )}
-              key={item => item.id}
-              numColumns={2}
-              showsVerticalScrollIndicator={false}
-            />
-          </View>
+          {filterData && filterData[0] ?
+            <View style={styles.carListBox}>
+              <FlatList
+                data={filterData}
+                renderItem={({ item }) => (
+                  <CarRent
+                    source={{ uri: http2 + item.image.front }}
+                    price={item.location.currency.symbol + item.location.price}
+                    carName={item.name.length > 10 ? item.name.slice(0, 10) + "..." : item.name}
+                    fuelType={item.fuel}
+                    transmision={item.transmission}
+                    onPress={() => { navigation.navigate("ProductDetails", { carData: item }) }}
+                    // onPress={() => { SingleCarDataApi(item.id), navigation.navigate("ProductDetails") }}
+                  />
+                )}
+                key={item => item.id}
+                numColumns={2}
+                showsVerticalScrollIndicator={false}
+              />
+            </View>
+            :
+            <View style={styles.no_data_box}>
+              <Text style={styles.no_data}>No Data</Text>
+            </View>
+          }
 
           {/* sort bottom sheet */}
           <BottomSheet
