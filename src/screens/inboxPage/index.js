@@ -3,7 +3,6 @@ import { TouchableOpacity, FlatList, View, Text, Image, StatusBar } from "react-
 import styles from "./styles";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { COLORS, SIZES, dummyData, images } from "../../constants";
-import HeaderLeft from "../../component/atoms/HeaderLeft";
 import { connect, useDispatch, useSelector } from "react-redux";
 import LoginBox from "../../component/atoms/LoginBox";
 import NoDataBox from "../../component/atoms/noDataBox";
@@ -62,12 +61,12 @@ const Message = ({ navigation }) => {
 }
 
 
-const Notification = () => {
+const Notification = ({navigation}) => {
   const loading = useSelector(state => state.notification.loading)
   const notification = useSelector(state => state.notification.notification)
   const userData = useSelector(state => state.auth.userData)
   // const notification = dummyData.Message;
-  console.log("notification : ", userData[0].role )
+  // console.log("notification : ",  notification)
   return (
     <>
       {loading ?
@@ -78,28 +77,19 @@ const Notification = () => {
             <View style={{ alignItems: 'center' }}>
               <FlatList
                 data={notification}
-                renderItem={({ item }) => (
+                renderItem={({ item, index }) => (
                   <NotificationBox
                     source={{ uri: http2 + item.image }}
                     date={formatDate(item.booking_details && item.booking_details.booking_date)}
                     bookingId={item.booking_details && item.booking_details.booking_id}
                     carName={item.title}
+                    style={index == 0 ? {marginTop: SIZES.height * .02} : null}
                     price={item.booking_details && item.booking_details.price}
                     location={item.booking_details && item.booking_details.location}
-                    customer_name={userData && userData[0]&& userData[0].role == "vendor" ? item.booking_details && item.booking_details.customer_name : null}
-                    
+                    // customer_name={userData && userData[0]&& userData[0].role == "vendor" ? item.booking_details && item.booking_details.customer_name : null}
+                    onPress={() => navigation.navigate("TripDetails", {data: item})}
                   />
-                  // <TouchableOpacity style={[styles.notificationBox, index == notification.length - 1 && { marginBottom: SIZES.height * .03, }]} >
-                  //   <View style={styles.carImgBox}>
-                  //     <Image source={images.logo} resizeMode={"contain"} style={styles.carImg} />
-                  //   </View>
-                  //   <View style={styles.contentBox1}>
-                  //     <Text style={styles.title}>Welcome to Auto Passion</Text>
-                  //     <Text style={styles.text}>Many desktop publishing packages and web page editors
-                  //       now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. </Text>
-                  //     <Text style={styles.time}>Tue, Mar 01, 15:50</Text>
-                  //   </View>
-                  // </TouchableOpacity>
+                 
                 )}
                 key={item => item.id}
                 showsVerticalScrollIndicator={false}
@@ -126,22 +116,22 @@ const InboxPage = ({ navigation, token, GetAllNotification }) => {
         backgroundColor={COLORS.light}
         barStyle="dark-content"
       />
-      <HeaderLeft navigation={navigation} title={"Message"} />
 
       {/* <InboxTabs /> */}
       {token ?
-        <Tab.Navigator
-          screenOptions={{
-            tabBarActiveTintColor: COLORS.black,
-            tabBarInactiveTintColor: "#777777",
-            tabBarLabelStyle: styles.tabBarLabelStyle,
-            tabBarIndicatorStyle: { backgroundColor: COLORS.black },
-          }}
+      <Notification navigation={navigation} />
+        // <Tab.Navigator
+        //   screenOptions={{
+        //     tabBarActiveTintColor: COLORS.black,
+        //     tabBarInactiveTintColor: "#777777",
+        //     tabBarLabelStyle: styles.tabBarLabelStyle,
+        //     tabBarIndicatorStyle: { backgroundColor: COLORS.black },
+        //   }}
 
-        >
-          <Tab.Screen name="Message" component={Message} />
-          <Tab.Screen name="Notification" component={Notification} />
-        </Tab.Navigator>
+        // >
+        //   <Tab.Screen name="Message" component={Message} />
+        //   <Tab.Screen name="Notification" component={Notification} />
+        // </Tab.Navigator>
         :
         <LoginBox onPress={() => navigation.navigate("Login")} />
       }

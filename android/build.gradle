@@ -22,6 +22,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+
+        
         // stripe payment 
         classpath("com.android.tools.build:gradle:7.4.2")
         

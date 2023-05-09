@@ -1,10 +1,11 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Stars from 'react-native-stars';
-import { COLORS, FONTS, SIZES, icons } from '../../../constants';
+import { COLORS, FONTS, SIZES, icons, images } from '../../../constants';
+import Icons from '../Icons';
 
 
-const ReviewCard = ({ source, name, message, date, rating, }) => {
+const ReviewCard = ({ source, name, message, date, rating, deletePress, showDelete }) => {
     return (
         <View style={styles.container}>
             <View style={styles.card}>
@@ -31,11 +32,22 @@ const ReviewCard = ({ source, name, message, date, rating, }) => {
                 <View style={styles.textBox}>
                     <Text style={styles.message}>{message}</Text>
                 </View>
-                <View style={styles.btnBox}>
-                    <TouchableOpacity>
-                        <Text style={styles.btnText}>Read More</Text>
+
+                {/* {message.length > 30 &&
+                    <View style={styles.btnBox}>
+                        <TouchableOpacity>
+                            <Text style={styles.btnText}>Read More</Text>
+                        </TouchableOpacity>
+                    </View>
+                } */}
+                {showDelete &&
+                    <TouchableOpacity
+                        style={styles.delete_btn}
+                        onPress={deletePress}
+                    >
+                        <Icons name={"delete"} size={20} color={COLORS.black} />
                     </TouchableOpacity>
-                </View>
+                }
             </View>
         </View>
     )
@@ -43,11 +55,13 @@ const ReviewCard = ({ source, name, message, date, rating, }) => {
 
 
 ReviewCard.defaultProps = {
-    source: null,
-    name: "",
-    message: "message",
-    rating: "",
-    date: '',
+    source: images.profile,
+    rating: 4,
+    name: "Kunal",
+    date: "May 12, 2023",
+    message: "It has survived not only five centuries,",
+    deletePress: null,
+    showDelete: true
 }
 
 export default ReviewCard;
@@ -63,7 +77,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: 'center',
         backgroundColor: COLORS.light,
-        borderRadius: 20,
+        borderRadius: 10,
         marginBottom: SIZES.height * .02,
         paddingVertical: SIZES.height * .02,
     },
@@ -138,5 +152,18 @@ const styles = StyleSheet.create({
         color: '#0F56CC',
         borderBottomWidth: 1,
         borderBottomColor: '#0F56CC',
+    },
+
+    delete_btn: {
+        width: SIZES.width * .1,
+        height: SIZES.height * .05,
+        alignItems: "center",
+        justifyContent: 'center',
+        // backgroundColor: COLORS.white,
+        borderRadius: 20,
+        // borderWidth: 1,
+        position: 'absolute',
+        right: 0,
+        top: 0,
     },
 })

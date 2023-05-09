@@ -5,7 +5,6 @@ import styles from './styles';
 import InputWithLabel from '../../component/atoms/inputs/InputWithLabel';
 import Button1 from '../../component/atoms/buttons/Button1';
 import Dropdown from '../../component/atoms/dropdown';
-import Header from '../../component/atoms/Header';
 import ProgressBar from '../../component/atoms/progressBar';
 import DatePicker from '../../component/atoms/datePicker';
 import { connect } from 'react-redux';
@@ -53,10 +52,6 @@ const DriverLicense = ({ navigation, route, countries, SaveVendorDataApi }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-           
-           {/* header */}
-           <Header />
-           
             <ScrollView
                 keyboardShouldPersistTaps={'handled'}
                 showsVerticalScrollIndicator={false}

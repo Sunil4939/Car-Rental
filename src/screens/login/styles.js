@@ -76,6 +76,8 @@ export default StyleSheet.create({
     row1: {
         flexDirection: 'row',
         alignItems: 'center',
+        // marginTop: SIZES.height * .2,
+        // marginBottom: SIZES.height * .05,
         marginVertical: SIZES.height * .05,
     },
 

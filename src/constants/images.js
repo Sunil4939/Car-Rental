@@ -1,4 +1,5 @@
-const logo = require('../assets/images/logo.png') 
+// const logo = require('../assets/images/logo.png') 
+const logo = require('../assets/images/logo1.png') 
 const location = require('../assets/images/location.png') 
 const bg = require('../assets/images/bg.png') 
 const car1 = require('../assets/images/car1.png') 
@@ -29,7 +30,12 @@ const login = require('../assets/images/login.jpg')
 const noNotification = require('../assets/images/noNotification.png')  
 const notFound = require('../assets/images/notFound.png')  
 const loading1 = require('../assets/images/loading1.gif')  
-const carLoading = require('../assets/images/carLoading.gif')  
+const carLoading = require('../assets/images/carLoading.gif')
+
+const passion1 = require('../assets/images/passion1.png')  
+const passion2 = require('../assets/images/passion2.png')  
+const passion3 = require('../assets/images/passion3.png')  
+const approved = require('../assets/images/approved.png') 
 
 export default {
     logo,
@@ -65,4 +71,8 @@ export default {
     notFound,
     loading1,
     carLoading,
+    passion1,
+    passion2,
+    passion3,
+    approved,
 }

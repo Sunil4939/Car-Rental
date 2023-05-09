@@ -6,7 +6,6 @@ import InputWithLabel from '../../component/atoms/inputs/InputWithLabel';
 import InputWithLabel1 from '../../component/atoms/inputs/inputWithLabel1';
 import Button1 from '../../component/atoms/buttons/Button1';
 import Dropdown from '../../component/atoms/dropdown';
-import Header from '../../component/atoms/Header';
 import ProgressBar from '../../component/atoms/progressBar';
 import { connect } from 'react-redux';
 // import Loading from '../../component/atoms/Loading'
@@ -19,8 +18,10 @@ const YourCar = ({ navigation, loading, GetDistanceUnitApi, GetPriceListApi, cou
 
     const country = ["Select your country", ...(countries ? Object.keys(countries) : null)]
     const currency = ["Select currency", ...(currencies ? Object.keys(currencies) : null)]
-    const price = priceList && Object.keys(priceList)
-    const distance = distanceList && Object.keys(distanceList)
+    const price = ["Select", ...(priceList ? Object.keys(priceList) : null)]
+    const distance = ["Select", ...(distanceList ? Object.keys(distanceList) : null)]
+    // const price = priceList && Object.keys(priceList)
+    // const distance = distanceList && Object.keys(distanceList)
     const transmission = ["Select an option ", ...transmissionList]
     const fuel = ["Select Fuel", ...fuelList]
     let year = ["Select build year", 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,
@@ -53,7 +54,12 @@ const YourCar = ({ navigation, loading, GetDistanceUnitApi, GetPriceListApi, cou
         seat: "",
         fuel: null,
         airconditioned: null,
+        distance_unit_id: 1,
+        price_duration_id: 2,
     })
+    // console.log("distance : ", distanceList)
+    // console.log(" price : ",priceList)
+    console.log("distance , price : ", postData.distance_unit_id, postData.price)
    
     const handleChange = (name, value) => {
         setPostData({
@@ -88,8 +94,6 @@ const YourCar = ({ navigation, loading, GetDistanceUnitApi, GetPriceListApi, cou
                         backgroundColor={COLORS.light}
                         barStyle="dark-content"
                     />
-                    {/* header */}
-                    <Header />
 
                     <ScrollView
                         keyboardShouldPersistTaps={'handled'}
@@ -212,9 +216,11 @@ const YourCar = ({ navigation, loading, GetDistanceUnitApi, GetPriceListApi, cou
                                         value={String(postData.price)}
                                         data={price}
                                         onChangeText={(text) => handleChange("price", Number(text))}
+                                        dropDownValue={postData.price_duration_id}
+                                        onChangeValue={(key, index) => handleChange("price_duration_id", priceList?.[key])}
                                     />
                                     <InputWithLabel
-                                        label={"Additional Price"}
+                                        label={"Additional Price"} 
                                         placeholder={"Additional Price"}
                                         value={String(postData.additional_price)}
                                         keyboardType={"numeric"}
@@ -227,9 +233,11 @@ const YourCar = ({ navigation, loading, GetDistanceUnitApi, GetPriceListApi, cou
                                         value={postData.distance}
                                         data={distance}
                                         onChangeText={(text) => handleChange("distance", text)}
+                                        dropDownValue={postData.distance_unit_id}
+                                        onChangeValue={(key, index) => handleChange("distance_unit_id", distanceList?.[key])}
                                     />
                                     <View style={styles.btnRow}>
-                                        <Button1
+                                        <Button1 
                                             onPress={() => navigation.goBack()}
                                         >Back</Button1>
                                         <Button1

@@ -4,7 +4,6 @@ import { COLORS, SIZES } from '../../constants';
 import styles from './styles';
 import Button1 from '../../component/atoms/buttons/Button1';
 import Dropdown from '../../component/atoms/dropdown';
-import Header from '../../component/atoms/Header';
 import ProgressBar from '../../component/atoms/progressBar';
 import Icons from '../../component/atoms/Icons';
 import { RNToasty } from 'react-native-toasty';
@@ -49,9 +48,6 @@ const CarAvailability = ({ navigation, route }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-            {/* header */}
-            <Header />
-            
             <ScrollView
                 keyboardShouldPersistTaps={'handled'}
                 showsVerticalScrollIndicator={false}

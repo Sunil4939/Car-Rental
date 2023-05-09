@@ -1,8 +1,9 @@
-import {  LOADING, SEARCH_DATA, } from "../types";
+import { LOADING, LOCATION, SEARCH_DATA, } from "../types";
 
 const initialState = {
     loading: false,
     searchData: null,
+    location: null
 }
 
 export default (state = initialState, action) => {
@@ -12,11 +13,16 @@ export default (state = initialState, action) => {
                 ...state,
                 searchData: action.payload
             }
-            case LOADING:
-                return {
-                    ...state,
-                    loading: action.payload
-                }
+        case LOCATION:
+            return {
+                ...state,
+                location: action.payload
+            }
+        case LOADING:
+            return {
+                ...state,
+                loading: action.payload
+            }
         default:
             return state;
     }

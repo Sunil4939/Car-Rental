@@ -2,7 +2,6 @@ import { View, Text, Image, StatusBar, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import styles from './styles';
 import { COLORS, images } from '../../constants';
-import HeaderLeft from '../../component/atoms/HeaderLeft';
 
 const PaymentFailed = ({ navigation, route }) => {
 
@@ -12,7 +11,6 @@ const PaymentFailed = ({ navigation, route }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-            <HeaderLeft navigation={navigation} title={"Payment Failed"} />
             <View style={styles.imageBox}>
                 <Image source={images.failed} style={styles.image} resizeMode='contain' />
             </View>

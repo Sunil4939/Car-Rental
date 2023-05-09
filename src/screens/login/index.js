@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Linking } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import Button1 from '../../component/atoms/buttons/Button1';
@@ -9,6 +9,8 @@ import InputWithIcon1 from '../../component/atoms/inputs/InputWithIcon1';
 import { COLORS, SIZES } from '../../constants';
 import { LoginApi } from '../../redux/actions/authAction';
 import styles from './styles';
+import { RNToasty } from 'react-native-toasty';
+
 
 
 const Login = ({ navigation, LoginApi }) => {
@@ -62,7 +64,7 @@ const Login = ({ navigation, LoginApi }) => {
                 />
                 <View style={styles.box}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("ResetPassword")}
+                        onPress={() => navigation.navigate("ForgetPassword")}
                         style={styles.btn}>
                         <Text style={styles.blueText}>Forgot Your Password?</Text>
                     </TouchableOpacity>
@@ -73,13 +75,13 @@ const Login = ({ navigation, LoginApi }) => {
                     onPress={handleSubmit}
                 >Log in</Button1>
 
-                <View style={styles.row}>
+                {/* <View style={styles.row}>
                     <View style={styles.line} />
                     <Text style={styles.or}>Or</Text>
                     <View style={styles.line} />
-                </View>
+                </View> */}
 
-                <View style={styles.btnRow}>
+                {/* <View style={styles.btnRow}>
                     <TouchableOpacity style={styles.socailBtn}>
                         <Icons name={"facebook"} size={25} color={COLORS.black} />
                     </TouchableOpacity>
@@ -89,7 +91,7 @@ const Login = ({ navigation, LoginApi }) => {
                     <TouchableOpacity style={styles.socailBtn}>
                         <Icons name={"apple"} size={25} color={COLORS.black} />
                     </TouchableOpacity>
-                </View>
+                </View> */}
 
                 <View style={styles.row1}>
                     <Text style={styles.text}>Already have  an account?</Text>

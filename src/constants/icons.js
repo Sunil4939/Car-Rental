@@ -11,6 +11,7 @@ const contact = require("../assets/icons/contact.png")
 const legal = require("../assets/icons/legal.png")
 const logout = require("../assets/icons/logout.png")
 const trash = require("../assets/icons/trash.png")
+const insurance = require("../assets/icons/insurance.png")
 
 const car = require("../assets/icons/car.png")
 const car1 = require("../assets/icons/car1.png")
@@ -60,6 +61,8 @@ const location = require("../assets/icons/location.png")
 const calendar2 = require("../assets/icons/calendar2.png")
 const notification = require("../assets/icons/notification.png")
 const addPost = require("../assets/icons/addPost.png")
+const code = require("../assets/icons/code.png")
+const code1 = require("../assets/icons/code1.png")
 
 
 export default {
@@ -76,6 +79,8 @@ export default {
     contact,
     logout,
     trash,
+    insurance,
+    code,
 
     car,
     car1,
@@ -126,4 +131,5 @@ export default {
     calendar2,
     notification,
     addPost,
+    code1,
 }

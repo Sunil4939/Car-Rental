@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { COLORS, SIZES } from '../../constants';
 import styles from './styles';
 import Button1 from '../../component/atoms/buttons/Button1';
-import Header from '../../component/atoms/Header';
 import Dropdown from '../../component/atoms/dropdown';
 import ProgressBar from '../../component/atoms/progressBar';
 
@@ -39,9 +38,6 @@ const Goals = ({ navigation, route }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-            {/* header */}
-            <Header />
-            
             {/* progress */}
             <ProgressBar
                 progress={.45}

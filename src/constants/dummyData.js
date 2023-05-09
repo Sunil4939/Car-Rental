@@ -4,7 +4,7 @@ import images from "./images"
 
 const CarList = [
     {
-        id:1,
+        id: 1,
         name: 'FORD FIESTA',
         image: images.car1,
         year: "2000",
@@ -12,7 +12,7 @@ const CarList = [
         active: true,
     },
     {
-        id:2,
+        id: 2,
         name: 'Honda Civic',
         image: images.car2,
         year: "2000",
@@ -20,7 +20,7 @@ const CarList = [
         active: false,
     },
     {
-        id:3,
+        id: 3,
         name: 'Suzuki Swift',
         image: images.car3,
         year: "2000",
@@ -28,7 +28,7 @@ const CarList = [
         active: true,
     },
     {
-        id:4,
+        id: 4,
         name: 'FORD FIESTA',
         image: images.car1,
         year: "2000",
@@ -36,7 +36,7 @@ const CarList = [
         active: true,
     },
     {
-        id:5,
+        id: 5,
         name: 'Honda Civic',
         image: images.car2,
         year: "2000",
@@ -44,7 +44,7 @@ const CarList = [
         active: false,
     },
     {
-        id:6,
+        id: 6,
         name: 'Suzuki Swift',
         image: images.car3,
         year: "2000",
@@ -52,7 +52,7 @@ const CarList = [
         active: true,
     },
     {
-        id:7,
+        id: 7,
         name: 'FORD FIESTA',
         image: images.car1,
         year: "2000",
@@ -60,7 +60,7 @@ const CarList = [
         active: true,
     },
     {
-        id:8,
+        id: 8,
         name: 'Honda Civic',
         image: images.car2,
         year: "2000",
@@ -68,7 +68,7 @@ const CarList = [
         active: false,
     },
     {
-        id:9,
+        id: 9,
         name: 'Suzuki Swift',
         image: images.car3,
         year: "2000",
@@ -244,24 +244,24 @@ const CarRent = [
         fuelType: "Diesel",
         transmision: "Automatic",
     },
-   
+
 ]
 
-const Feature =  [
-    {id:1 ,icon: "android" , feature: "Android Auto"},
-    {id:2 ,icon: "bluetooth" , feature: "Bluetooth"},
-    {id:3 ,icon: "play" , feature: "USB input"},
-    {id:4 ,icon: "android" , feature: "Apple CarPlay"},
-    {id:5 ,icon: "bluetooth" , feature: "AUX input"},
-    {id:6 ,icon: "play" , feature: "Backup camera"},
-    {id:7 ,icon: "android" , feature: "Heated seats"},
-    {id:8 ,icon: "bluetooth" , feature: "ABS"},
-    {id:9 ,icon: "play" , feature: "Blind spot warning"},
-  ]
+const Feature = [
+    { id: 1, icon: "android", feature: "Android Auto" },
+    { id: 2, icon: "bluetooth", feature: "Bluetooth" },
+    { id: 3, icon: "play", feature: "USB input" },
+    { id: 4, icon: "android", feature: "Apple CarPlay" },
+    { id: 5, icon: "bluetooth", feature: "AUX input" },
+    { id: 6, icon: "play", feature: "Backup camera" },
+    { id: 7, icon: "android", feature: "Heated seats" },
+    { id: 8, icon: "bluetooth", feature: "ABS" },
+    { id: 9, icon: "play", feature: "Blind spot warning" },
+]
 
-  const RatingCard = [
+const RatingCard = [
     {
-        id:1,
+        id: 1,
         source: images.profile,
         rating: 4,
         name: "Kunal",
@@ -269,7 +269,7 @@ const Feature =  [
         text: `t has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960... {'\n\n'} but also the leap into electronic typesetting, remaining essentially unchanged.`
     },
     {
-        id:2,
+        id: 2,
         source: images.profile,
         rating: 4,
         name: "Kunal",
@@ -277,16 +277,16 @@ const Feature =  [
         text: "t has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960... {'\n\n'} but also the leap into electronic typesetting, remaining essentially unchanged.",
     },
     {
-        id:3,
+        id: 3,
         source: images.profile,
         rating: 4,
         name: "Kunal",
         date: "May 12, 2023",
         text: "t has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960... {'\n\n'} but also the leap into electronic typesetting, remaining essentially unchanged.",
     },
-  ]
+]
 
-  const TopCars = [
+const TopCars = [
     {
         id: 1,
         source: images.car4,
@@ -323,7 +323,7 @@ const Feature =  [
         fuelType: "Diesel",
         transmision: "Automatic",
     },
-   
+
 ]
 
 const AllCars = [
@@ -355,9 +355,240 @@ const AllCars = [
         carName: "FORD FIESTA",
         start: "Starting From",
     },
-   
+
 ]
 
+const CarCategory = [
+    {
+        id: 1,
+        source: images.car1,
+        carName: "FORD FIESTA",
+    },
+    {
+        id: 2,
+        source: images.car2,
+        carName: "Suzuki Swift",
+    },
+    {
+        id: 3,
+        source: images.car3,
+        carName: "Suzuki Swift",
+    },
+    {
+        id: 4,
+        source: images.car4,
+        carName: "FORD FIESTA",
+    },
+]
+
+const AutoPassionQuestion = [
+    {
+        id: 1,
+        title: "What do I need to book a car on Rentau?",
+        text: "Enter a location and date and browse thousands of cars shared by local hosts.",
+    },
+    {
+        id: 2,
+        title: "Do I need my own insurance?",
+        text: "Enter a location and date and browse thousands of cars shared by local hosts.",
+    },
+    {
+        id: 3,
+        title: "Do i need a US license to drive in the US?",
+        text: "Enter a location and date and browse thousands of cars shared by local hosts.",
+    },
+    {
+        id: 4,
+        title: "Can other people drive a car that I Booked?",
+        text: "Enter a location and date and browse thousands of cars shared by local hosts.",
+    },
+    {
+        id: 5,
+        title: "What is the cancellation policy on Rentau?",
+        text: "Enter a location and date and browse thousands of cars shared by local hosts.",
+    },
+    {
+        id: 6,
+        title: "What happens if I have an accident?",
+        text: "Enter a location and date and browse thousands of cars shared by local hosts.",
+    },
+    {
+        id: 7,
+        title: "Can I Get my car delivered to me?",
+        text: "Enter a location and date and browse thousands of cars shared by local hosts.",
+    },
+    {
+        id: 8,
+        title: "Can do I get discounts when booking a car",
+        text: "Enter a location and date and browse thousands of cars shared by local hosts.",
+    },
+    {
+        id: 9,
+        title: "What are the cleaning and safety policies on Rentau?",
+        text: "Enter a location and date and browse thousands of cars shared by local hosts.",
+    },
+]
+
+const GuestFeatures = [
+    {
+        id: 11, 
+        title: "Getting started guide | Guests"
+    },
+    {
+        id:12, 
+        title: "Refunds"
+    },
+    {
+        id:13, 
+        title: "Cancel a trip with your host"
+    },
+    {
+        id:14, 
+        title: "Changing account information"
+    },
+    {
+        id:15, 
+        title: "Messaging your host"
+    },
+    {
+        id:16, 
+        title: "Resolving problems booking a car"
+    },
+    {
+        id: 17,
+        title: "Trip photos guide | Guests"
+    }
+]
+
+const GuestData = [
+    {
+        id:21, 
+        title: "Getting started guide | Guests"
+    },
+    {
+        id:22, 
+        title: "Refunds"
+    },
+]
+
+const HostFeatures = [
+    {
+        id: 31, 
+        title: "Vehicle eligibility | US"
+    },
+    {
+        id:32, 
+        title: "Requesting reimbursement"
+    },
+    {
+        id:33, 
+        title: "Canceling a trip with your guset"
+    },
+    {
+        id:34, 
+        title: "Guest no-shows"
+    },
+    {
+        id:35, 
+        title: "relisting a vehicle"
+    },
+    {
+        id:36, 
+        title: "Access your tax information form"
+    },
+    {
+        id: 37,
+        title: "Filling out the tax information form"
+    },
+    {
+        id:38, 
+        title: "Receiving a 1099-K"
+    },
+    {
+        id: 39,
+        title: "Vehicle eligibility | India"
+    }
+]
+
+
+
+const HostData = [
+    {
+        id:41, 
+        title: "Vehicle eligibility | US"
+    },
+    {
+        id:42, 
+        title: "Requesting reimbursement"
+    },
+]
+
+const Host = [
+    {
+        id: 1,
+        title: "Featured Articles",
+    },
+    {
+        id: 2,
+        title: "Planning your trip",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 3,
+        title: "Paying for your trip",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 4,
+        title: "Changing or canceling your trip",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 5,
+        title: "Arranging airport delivery",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 6,
+        title: "Understanding guest responsibilities",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 7,
+        title: "Managing incidents",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 8,
+        title: "Managing your account",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 9,
+        title: "Troubleshooting account issues",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 10,
+        title: "Vehicle use policies",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 11,
+        title: "Using Turo Go",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 12,
+        title: "Understanding and choosing protection",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+    {
+        id: 13,
+        title: "Managing vehicle damage",
+        data: ["Vehicle eligibility | US","Requesting reimbursement",]
+    },
+]
 
 export default {
     CarList,
@@ -368,4 +599,11 @@ export default {
     RatingCard,
     TopCars,
     AllCars,
+    CarCategory,
+    AutoPassionQuestion,
+    GuestFeatures,
+    GuestData,
+    HostFeatures,
+    HostData
+
 }

@@ -14,6 +14,7 @@ const InputWithIcon = ({
     label,
     leftIcon,
     labelStyle,
+    editable,
     inputStyle }) => {
     return (
         <View
@@ -44,6 +45,7 @@ const InputWithIcon = ({
                     keyboardType={keyboardType}
                     maxLength={maxLength}
                     style={[styles.inputTextStyle, inputTextStyle]}
+                    editable={editable}
                 />
             </View>
         </View>
@@ -57,10 +59,11 @@ InputWithIcon.defaultProps = {
     value: null,
     keyboardType: "default",
     maxLength: null,
-    label: "null",
+    label: null,
     labelStyle: null,
     inputStyle: null,
-    leftIcon: "email"
+    leftIcon: "email",
+    editable: true,
 }
 
 export default InputWithIcon;

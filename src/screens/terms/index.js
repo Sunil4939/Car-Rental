@@ -2,7 +2,6 @@ import { View, Text, StatusBar, TouchableOpacity, } from 'react-native'
 import React, { useEffect } from 'react'
 import { COLORS, SIZES } from '../../constants';
 import styles from './styles';
-import Header from '../../component/atoms/Header';
 import ProgressBar from '../../component/atoms/progressBar';
 import { connect } from 'react-redux';
 import { LogoutApi } from '../../redux/actions/authAction';
@@ -21,8 +20,6 @@ const Terms = ({ navigation, LogoutApi, GetVendorApi }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-            {/* header */}
-            <Header />
 
             {/* progress */}
             <ProgressBar

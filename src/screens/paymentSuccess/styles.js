@@ -76,17 +76,17 @@ export default StyleSheet.create({
 
     
     btn: {
-        width: SIZES.width * .5,
+        width: SIZES.width * .9,
         height: SIZES.height * .065,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 8,
-        backgroundColor: "#EC1D1C",
-        marginTop:  SIZES.height * .03,
+        backgroundColor: COLORS.black,
+        marginTop:  SIZES.height * .05,
     },
 
     btnText: {
-        fontFamily: FONTS.regular,
+        fontFamily: FONTS.medium,
         fontSize: 14,
         color: COLORS.white,
     },

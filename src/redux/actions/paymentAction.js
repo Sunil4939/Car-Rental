@@ -3,13 +3,16 @@ import { CUSTOMER_DATA, LOADING, PAYMENT_INTENT } from "../types";
 import stripeHttp from "../../services/stripeApi";
 
 
-export const createCustomer = (amount, currency) => async dispatch => {
+export const createCustomer = (amount, currency) => async (dispatch, getState) => {
+    const { userData } = getState().auth
     dispatch({
         type: LOADING,
         payload: true,
     });
 
-    stripeHttp.post(`customers`)
+    // console.log("user data customer : ",userData)
+
+    stripeHttp.post(`customers?email=${userData && userData.email}`)
         .then(response => {
             if (response.data) {
                 dispatch({
@@ -21,19 +24,19 @@ export const createCustomer = (amount, currency) => async dispatch => {
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Success({
-                    title: "Customer created successfully",
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: "Customer created successfully",
+                //     duration: 2,
+                // });
             } else {
                 dispatch({
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
@@ -41,12 +44,12 @@ export const createCustomer = (amount, currency) => async dispatch => {
                 type: LOADING,
                 payload: false,
             });
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
         })
 };
 
@@ -72,10 +75,10 @@ export const createPaymentIntent = (amount, currency, customerId) => async (disp
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Success({
-                    title: "Payment intent created successfully",
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: "Payment intent created successfully",
+                //     duration: 2,
+                // });
             } else {
                 dispatch({
                     type: LOADING,
@@ -120,19 +123,19 @@ export const confirmPaymentIntent = (payment_intent, payment_method) => async di
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Success({
-                    title: "Payment confirm successfully",
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: "Payment confirm successfully",
+                //     duration: 2,
+                // });
             } else {
                 dispatch({
                     type: LOADING,
                     payload: false,
                 });
-                RNToasty.Info({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
             }
         })
         .catch(error => {
@@ -141,12 +144,12 @@ export const confirmPaymentIntent = (payment_intent, payment_method) => async di
                 type: LOADING,
                 payload: false,
             });
-            if (error.response.data.message) {
-                RNToasty.Error({
-                    title: error.response.data.message,
-                    duration: 2,
-                });
-            }
+            // if (error.response.data.message) {
+            //     RNToasty.Error({
+            //         title: error.response.data.message,
+            //         duration: 2,
+            //     });
+            // }
 
         })
 };

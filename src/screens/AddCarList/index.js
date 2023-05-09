@@ -1,17 +1,13 @@
 import { View, Text, StatusBar, FlatList, ScrollView, Animated } from 'react-native'
 import React from 'react'
-import Header from '../../component/atoms/Header';
 import { COLORS, dummyData, images, SIZES } from '../../constants';
 import styles from './styles';
-import SwipeValueBasedUi from '../../component/atoms/swipeBox';
 import Button1 from '../../component/atoms/buttons/Button1';
 import { connect } from 'react-redux';
 import { DeleteCarDataApi, GetCarImageApi, GetCarListApi } from '../../redux/actions/vendorRegistration';
 import { useEffect } from 'react';
-import Loading from '../../component/atoms/Loading';
 import { http2 } from '../../services/api';
 import { useState } from 'react';
-import LoginBox from '../../component/atoms/LoginBox';
 import Loading1 from '../../component/atoms/Loading/Loading1';
 import SwipeCarBox from '../../component/atoms/swipeBox/SwipeCarBox';
 import findAgoDays from '../../services/findAgoDays';
@@ -19,35 +15,35 @@ import { GetUserDataApi } from '../../redux/actions/authAction';
 import { SingleCarDataApi } from '../../redux/actions/productAction';
 
 
-const AddCarList = ({ navigation, GetCarListApi, carList, token, GetCarImageApi, SingleCarDataApi, GetUserDataApi, DeleteCarDataApi, carImages, userData, loading }) => {
+const AddCarList = ({ navigation, GetCarListApi,userRole, carList, token, GetCarImageApi, SingleCarDataApi, GetUserDataApi, DeleteCarDataApi, carImages, userData, loading }) => {
 
-  console.log("user : ", userData && userData.role)
-  const [role, setRole] = useState(userData && userData.role)
+  // console.log("user : ", userData && userData.role)
+  const [role, setRole] = useState()
 
-  const [listData, setListData] = useState();
 
   useEffect(() => {
     GetUserDataApi()
     GetCarListApi()
   }, [])
 
-  // console.log("dsafdasf ; ", carList[2])
+  useEffect(() => {
+    setRole(userData && userData.role)
+  }, [])
+
+  // console.log("dsafdasf ; ", carList)
 
 
   return (
-    <View style={styles.container} >
-      <StatusBar
-        backgroundColor={COLORS.light}
-        barStyle="dark-content"
-      />
-      <Header
-      // source={images.profile}
-      />
+    <>
       {loading ?
         <Loading1 />
         :
-        <>
-          {role == "vendor" || carList ?
+        <View style={styles.container} >
+          <StatusBar
+            backgroundColor={COLORS.light}
+            barStyle="dark-content"
+          />
+          {userRole == "vendor" || carList[0] ?
             <ScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.titleBox}>
                 <Text style={styles.title}>Your Listings</Text>
@@ -55,8 +51,23 @@ const AddCarList = ({ navigation, GetCarListApi, carList, token, GetCarImageApi,
               <View style={styles.contentBox}>
                 <Text style={styles.title1}>Add new Listing</Text>
                 <View style={styles.listBox}>
-
                   <View style={styles.listContainer}>
+                    {/* <FlatList
+                      data={carList}
+                      renderItem={({ item }) => (
+                        <SwipeCarBox
+                          source={item.image.front ? { uri: http2 + item.image.front } : images.car1}
+                          isActive={item.is_active}
+                          brandName={item.name}
+                          buildYear={item.build_year}
+                          createdAt={findAgoDays(item.created_at)}
+                          editPress={() => navigation.navigate("UpdateCar", { carData: item })}
+                          deletePress={() => DeleteCarDataApi(item.id)}
+                        />
+                      )}
+                      key={item => item.id}
+                      showsVerticalScrollIndicator={false}
+                    /> */}
                     {carList && carList.map((item) => (
                       <SwipeCarBox
                         key={item.id}
@@ -67,6 +78,8 @@ const AddCarList = ({ navigation, GetCarListApi, carList, token, GetCarImageApi,
                         createdAt={findAgoDays(item.created_at)}
                         editPress={() => navigation.navigate("UpdateCar", { carData: item })}
                         deletePress={() => DeleteCarDataApi(item.id)}
+                        onPress={() => { SingleCarDataApi(item.id), navigation.navigate("ProductDetails", {routeName: "AddCarList"}) }}
+                        // onPress={() => { navigation.navigate("ProductDetails", { carData: item }) }}
                       />
                     ))}
                   </View>
@@ -89,9 +102,10 @@ const AddCarList = ({ navigation, GetCarListApi, carList, token, GetCarImageApi,
               >Become a host</Button1>
             </View>
           }
-        </>
+        </View>
       }
-    </View>
+    </>
+
   )
 }
 
@@ -101,6 +115,7 @@ const mapStateToProps = (state) => ({
   carImages: state.getVendor.carImages,
   token: state.auth.token,
   userData: state.auth.userData,
+  userRole: state.auth.userRole,
 })
 
 const mapDispatchToProps = {

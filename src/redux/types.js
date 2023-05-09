@@ -2,6 +2,8 @@
 export const AUTH_TOKEN = "AUTH_TOKEN"
 export const USER_DATA = "USER_DATA"
 export const USER_ID = "USER_ID"
+export const USER_ROLE = "USER_ROLE"
+export const HOST_DATA = "HOST_DATA"
 
 //home
 export const LOADING = "LOADING"
@@ -20,6 +22,7 @@ export const CAR_IMAGES = "CAR_IMAGES"
 
 // search
 export const SEARCH_DATA = "SEARCH_DATA"
+export const LOCATION = "LOCATION"
 
 // product 
 export const FILTER_DATA = "FILTER_DATA"
@@ -30,6 +33,9 @@ export const SINGLE_CAR_DATA = "SINGLE_CAR_DATA"
 export const BOOKING_DATA = "BOOKING_DATA"
 export const SESSION_ID = "SESSION_ID"
 export const BOOKING_HISTORY = "BOOKING_HISTORY"
+export const SINGLE_BOOKING = "SINGLE_BOOKING"
+export const CLAIM_TYPE = "CLAIM_TYPE"
+export const CLAIM_List = "CLAIM_List"
 
 // home
 export const All_CAR_LIST = "All_CAR_LIST"

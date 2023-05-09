@@ -87,7 +87,8 @@ export const SaveVendorDataApi = (postdataIn, navigation) => async dispatch => {
                     type: LOADING,
                     payload: false,
                 });
-                navigation.navigate('AddCarList')
+                navigation && navigation.navigate('CarList')
+                // navigation && navigation.replace('AllCarList')
                 
             } else {
                 dispatch({
@@ -106,13 +107,13 @@ export const SaveVendorDataApi = (postdataIn, navigation) => async dispatch => {
                 type: LOADING,
                 payload: false,
             });
-            // if (error.response.data.message) {
-            //     console.log("vendor error : ", error.response.data.message)
-            //     RNToasty.Error({
-            //         title: error.response.data.message,
-            //         duration: 2,
-            //     });
-            // }
+            if (error.response.data.message) {
+                console.log("vendor error : ", error.response.data.message)
+                RNToasty.Error({
+                    title: error.response.data.message,
+                    duration: 2,
+                });
+            }
 
         })
 };
@@ -222,7 +223,7 @@ export const DeleteCarDataApi = (carId) => async dispatch => {
         })
 };
 
-export const UpdateCarDataApi = (carId, postData, navigation) => async dispatch => {
+export const UpdateCarDataApi = (carId, postdataIn, navigation) => async dispatch => {
     const userId = await AsyncStorage.getItem("@USER_ID")
     
     // console.log("carId : ", carId, userId)
@@ -231,20 +232,20 @@ export const UpdateCarDataApi = (carId, postData, navigation) => async dispatch 
         type: LOADING,
         payload: true,
     });
-     postData = await objectToFormData(postData)
+    const  postData = await objectToFormData(postdataIn)
     // postdataIn.features && postdataIn.features[0] && postdataIn.features.map((item, index) => {
     //     postData.append("features", item)
     //     // console.log("shop banner : ", item)
     // })
     // console.log("formdata : ", postData)
 
-    http.post(`update/${carId}/${userId}`,postData, {
+    http.post(`update_car?car_id=${carId}`,postData, {
         enctype: "multipart/form-data",
         headers: {
             "Content-Type": "multipart/form-data",
             "Content-Disposition": "form-data",
         },
-    } )
+    })
         .then(response => {
             if (response.data.response) {
                 dispatch(GetCarListApi())
@@ -269,16 +270,79 @@ export const UpdateCarDataApi = (carId, postData, navigation) => async dispatch 
             }
         })
         .catch(error => {
-            // console.log("vendor error : ", error)
             dispatch({
                 type: LOADING,
                 payload: false,
-            });
+            }); 
             if (error.response.data.message) {
                 RNToasty.Error({
                     title: error.response.data.message,
                     duration: 2,
                 });
+            console.log("vendor error : ", error.response.data.message)
+
+            }
+
+        })
+};
+
+
+export const UpdateCarImageApi = (image_id, car_image_id, postdataIn) => async dispatch => {
+  
+   
+    dispatch({
+        type: LOADING,
+        payload: true,
+    });
+    const  postData = await objectToFormData(postdataIn)
+    // postdataIn.features && postdataIn.features[0] && postdataIn.features.map((item, index) => {
+    //     postData.append("features", item)
+    //     // console.log("shop banner : ", item)
+    // })
+    // console.log("formdata : ", postData)
+
+    http.post(`updateimg?image_id=${image_id}&image_car_id=${car_image_id}`,postData, {
+        enctype: "multipart/form-data",
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Content-Disposition": "form-data",
+        },
+    })
+        .then(response => {
+            if (response.data.response) {
+                dispatch(GetCarListApi())
+                RNToasty.Success({
+                    title: response.data.message,
+                    duration: 2,
+                });
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
+                // navigation && navigation.goBack()
+            } else {
+                dispatch({
+                    type: LOADING,
+                    payload: false,
+                });
+                // RNToasty.Info({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
+            }
+        })
+        .catch(error => {
+            dispatch({
+                type: LOADING,
+                payload: false,
+            }); 
+            if (error.response.data.message) {
+                RNToasty.Error({
+                    title: error.response.data.message,
+                    duration: 2,
+                });
+            console.log("vendor error : ", error.response.data.message)
+
             }
 
         })

@@ -48,7 +48,8 @@ const Dropdown = ({
                 // renderSearchInputLeftIcon={()=> (
                 //     <Icons name="search" size={20} style={styles.down} color={COLORS.light1} />
                 // )}
-                defaultValueByIndex={0}
+                // defaultValueByIndex={0} 
+                defaultValueByIndex={value ? data.indexOf(value) : 0}
                 onSelect={(selectedItem, index) => {
                     console.log(selectedItem, index)
                     onChangeText && onChangeText(selectedItem, index)

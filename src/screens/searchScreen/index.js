@@ -1,25 +1,31 @@
 import { View, Text, FlatList, StatusBar, TextInput, ActivityIndicator, Image, } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { COLORS, SIZES, images } from '../../constants'
 import { connect } from 'react-redux'
-import { SearchCarApi } from '../../redux/actions/searchAction'
+import { SearchByLocation, SearchCarApi } from '../../redux/actions/searchAction'
 import styles from './styles'
 import { CarRent } from '../../component/atoms/cards'
 import { http2 } from '../../services/api'
 import Icons from '../../component/atoms/Icons'
-import HeaderLeft from '../../component/atoms/HeaderLeft'
 import { useState } from 'react'
+import { SingleCarDataApi } from '../../redux/actions/productAction'
 
 
-const SearchScreen = ({ navigation, SearchCarApi, searchData, loading }) => {
+const SearchScreen = ({ navigation, SearchCarApi, SearchByLocation, searchData,SingleCarDataApi, loading, route }) => {
     const [seachTitle, setSearchTitle] = useState()
+    // const location = route.params && route.params.location
+
+    useEffect(() => {
+        if(route.params)
+        SearchByLocation(route.params.location)
+    }, [])
     return (
         <View style={styles.container}>
             <StatusBar
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-            <HeaderLeft navigation={navigation} title={"Search"} />
+
             <View style={styles.searchBox}>
                 <View style={styles.search}>
                     <Icons name={"search"} size={20} color={COLORS.black} style={styles.searchIcon} />
@@ -45,7 +51,7 @@ const SearchScreen = ({ navigation, SearchCarApi, searchData, loading }) => {
                             carName={item.name.length > 10 ? item.name.slice(0, 10) + "..." : item.name}
                             fuelType={item.fuel}
                             transmision={item.transmission}
-                            onPress={() => { navigation.navigate("ProductDetails", { carData: item }) }}
+                            onPress={() => { SingleCarDataApi(item.id), navigation.navigate("ProductDetails", {routeName: route.params && route.params.routeName}) }}
                         />
                     )}
                     key={item => item.id}
@@ -64,6 +70,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     SearchCarApi,
+    SingleCarDataApi,
+    SearchByLocation,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen)

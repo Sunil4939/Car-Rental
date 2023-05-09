@@ -1,10 +1,12 @@
-import { AUTH_TOKEN, LOADING, USER_DATA, USER_ID } from "../types";
+import { AUTH_TOKEN, HOST_DATA, LOADING, USER_DATA, USER_ID, USER_ROLE } from "../types";
 
 const initialState = {
     token: null,
     userId: null,
     loading: false,
     userData: null,
+    userRole: null,
+    hostData: null,
 }
 
 export default (state = initialState, action) => {
@@ -24,11 +26,21 @@ export default (state = initialState, action) => {
                 ...state,
                 userData: action.payload
             }
-            case LOADING:
+            case HOST_DATA:
                 return {
                     ...state,
-                    loading: action.payload
+                    hostData: action.payload
                 }
+        case USER_ROLE:
+            return {
+                ...state,
+                userRole: action.payload
+            }
+        case LOADING:
+            return {
+                ...state,
+                loading: action.payload
+            }
         default:
             return state;
     }

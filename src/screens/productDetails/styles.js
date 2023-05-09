@@ -515,7 +515,7 @@ export default StyleSheet.create({
     buttonBox: {
         width: SIZES.width * .9,
         alignItems: 'center',
-        marginVertical: SIZES.height * .05,
+        marginTop: SIZES.height * .05,
     },
 
     bottom_sheet: {
@@ -665,5 +665,33 @@ export default StyleSheet.create({
         fontFamily: FONTS.semiBold,
         fontSize: 18,
         color: COLORS.black,
+    },
+
+
+
+
+
+    inputTextStyle: {
+        width: SIZES.width * .9,
+        // height: SIZES.height * .06,
+        fontFamily: FONTS.regular,
+        fontSize: 15,
+        color: COLORS.black,
+        paddingLeft: 10,
+        paddingVertical: SIZES.height * .01,
+        borderWidth: 1,
+        borderRadius: 8,
+        borderColor: "#333333",
+        backgroundColor: COLORS.white,
+        textAlignVertical: 'top',
+        marginBottom: SIZES.height * .02,
+    },
+
+    rating_row2: {
+        width: SIZES.width * .6,
+        flexDirection:'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: SIZES.height * .02,
     },
 })

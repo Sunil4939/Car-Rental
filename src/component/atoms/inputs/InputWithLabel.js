@@ -48,11 +48,11 @@ InputWithLabel.defaultProps = {
     inputTextStyle: null,
     onChangeText: null,
     placeholder: null,
-    value: null,
+    value: '',
     keyboardType: "default",
     maxLength: null,
     secureTextEntry: false,
-    label: "null",
+    label: null,
     labelStyle: null,
     inputStyle: null,
     required: true

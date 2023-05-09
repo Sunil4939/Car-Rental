@@ -4,17 +4,19 @@ import { COLORS, FONTS, icons, images, SIZES } from '../../../constants';
 import Icons from '../Icons';
 
 
-const HeaderLeft = ({ navigation, title }) => {
+const HeaderLeft = ({ navigation, title, boxStyle, showBack }) => {
     return (
-        <View style={styles.rootBox}>
+        <View style={{ ...styles.box, ...boxStyle }}>
             <View style={styles.container}>
                 <View style={styles.row}>
-                    <TouchableOpacity
-                        style={styles.backBtn}
-                        onPress={() => navigation.goBack()}
-                    >
-                        <Icons name={"back"} size={20} color={COLORS.black} />
-                    </TouchableOpacity>
+                    {showBack &&
+                        <TouchableOpacity
+                            style={styles.backBtn}
+                            onPress={() => navigation.goBack()}
+                        >
+                            <Icons name={"back"} size={20} color={COLORS.black} />
+                        </TouchableOpacity>
+                    }
                     <Text style={styles.title}>{title}</Text>
                 </View>
             </View>
@@ -24,16 +26,17 @@ const HeaderLeft = ({ navigation, title }) => {
 
 HeaderLeft.defaultProps = {
     onPress: null,
-    title: "Trip"
+    title: "Trip",
+    boxStyle: null,
+    showBack: true,
 }
 
 export default HeaderLeft;
 
 const styles = StyleSheet.create({
-    rootBox: {
-        width: SIZES.width,
-        height: SIZES.height * .1,
-        alignItems: 'center',
+
+    box: {
+        backgroundColor: COLORS.white,
     },
 
     container: {

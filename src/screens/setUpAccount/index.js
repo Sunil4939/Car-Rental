@@ -2,7 +2,6 @@ import { View, Text, StatusBar, TouchableOpacity, } from 'react-native'
 import React from 'react'
 import { COLORS, SIZES } from '../../constants';
 import styles from './styles';
-import Header from '../../component/atoms/Header';
 import Button1 from '../../component/atoms/buttons/Button1';
 import InputWithIcon from '../../component/atoms/inputs/InputWithIcon';
 import { useState } from 'react';
@@ -44,9 +43,6 @@ const SetUpAccount = ({ navigation, route }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-           {/* header */}
-           <Header />
-
             <KeyboardAwareScrollView
                 keyboardShouldPersistTaps={'handled'}
                 showsVerticalScrollIndicator={false} >

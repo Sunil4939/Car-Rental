@@ -3,9 +3,9 @@ import React from 'react'
 import { COLORS, FONTS, SIZES, icons, images } from '../../../constants'
 import formatDate from '../../../services/date'
 
-const NotificationBox = ({ source, pickup, drop, location, price, carName, brand, date, bookingId, onPress, customer_name }) => {
+const NotificationBox = ({ source, pickup, drop,style, location, price, carName, brand, date, bookingId, onPress, customer_name }) => {
     return (
-        <TouchableOpacity style={styles.tripBox} onPress={onPress}>
+        <TouchableOpacity style={{...styles.tripBox, ...style}} onPress={onPress}>
             <View style={styles.carImgBox}>
                 <Image source={source} resizeMode="contain" style={styles.carImg} />
             </View>
@@ -64,7 +64,8 @@ NotificationBox.defaultProps = {
     carName: "swift",
     pickup: null,
     drop: null,
-    customer_name: null
+    customer_name: null,
+    style: null
 }
 
 export default NotificationBox;

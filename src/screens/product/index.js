@@ -2,7 +2,6 @@ import { View, Text, StatusBar, TouchableOpacity, TextInput, FlatList, ScrollVie
 import React from 'react'
 import styles from './styles'
 import { COLORS, SIZES, dummyData, images } from '../../constants'
-import Header from '../../component/atoms/Header'
 import Icons from '../../component/atoms/Icons'
 import { useState } from 'react'
 import Button1 from '../../component/atoms/buttons/Button1';
@@ -17,8 +16,6 @@ import { useEffect } from 'react'
 import { FilterApi, ResetFilterApi, SearchFilterApi, SingleCarDataApi } from '../../redux/actions/productAction'
 import { http2 } from '../../services/api'
 import Loading1 from '../../component/atoms/Loading/Loading1'
-import Loading from '../../component/atoms/Loading'
-
 
 
 
@@ -54,13 +51,14 @@ const DateButton = ({ placeholder, onChangeValue, value }) => {
 }
 
 
-const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, ResetFilterApi, SearchFilterApi, filterData, GetTransmissionListApi, GetFuelListApi, fuelList, transmissionList }) => {
+const Product = ({ navigation, filter,route, FilterApi, loading, SingleCarDataApi, ResetFilterApi, SearchFilterApi, filterData, GetTransmissionListApi, GetFuelListApi, fuelList, transmissionList }) => {
   const [filterBottom, setFilterBottom] = useState(false)
   const [sortBottom, setSortBottom] = useState(false)
 
   const [searchTitle, setSearchTitle] = useState('');
   // console.log("fuel list : ", fuelList)
   // console.log("filter data : ", filterData)
+  // console.log("route success : ",route.params && route.params.routeName)
 
   let year = [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,
     2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
@@ -143,8 +141,7 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
         backgroundColor={COLORS.light}
         barStyle="dark-content"
       />
-      {/* header */}
-      <Header />
+     
 
       <View style={{ alignItems: 'center' }}>
         <View style={styles.topBox}>
@@ -218,8 +215,8 @@ const Product = ({ navigation, filter, FilterApi, loading, SingleCarDataApi, Res
                     carName={item.name.length > 10 ? item.name.slice(0, 10) + "..." : item.name}
                     fuelType={item.fuel}
                     transmision={item.transmission}
-                    onPress={() => { navigation.navigate("ProductDetails", { carData: item }) }}
-                    // onPress={() => { SingleCarDataApi(item.id), navigation.navigate("ProductDetails") }}
+                    onPress={() => {SingleCarDataApi(item.id), navigation.navigate("ProductDetails", {routeName: route.params && route.params.routeName}) }}
+                    // onPress={() => { SingleCarDataApi(item.id), navigation.navigate("ProductDetails", {routeName: route.name}) }}
                   />
                 )}
                 key={item => item.id}

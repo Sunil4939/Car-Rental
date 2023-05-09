@@ -2,7 +2,6 @@ import { View, Text, StatusBar, TouchableOpacity, } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS, SIZES } from '../../constants';
 import styles from './styles';
-import Header from '../../component/atoms/Header';
 import Button1 from '../../component/atoms/buttons/Button1';
 import ProgressBar from '../../component/atoms/progressBar';
 import CheckBox from '@react-native-community/checkbox';
@@ -59,9 +58,6 @@ const SubmitList = ({ navigation, route, SaveVendorDataApi }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-            {/* header */}
-            <Header />
-
             {/* progress */}
             <ProgressBar
                 progress={1}

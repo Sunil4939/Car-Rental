@@ -26,6 +26,14 @@ export default StyleSheet.create({
         color: COLORS.black,
     },
 
+    label: {
+        // width: SIZES.width * .4,
+        fontFamily: FONTS.medium,
+        fontSize: 16,
+        marginBottom: -4,
+        color: COLORS.black,
+    },
+
     carName: {
         fontFamily: FONTS.medium,
         fontSize: 16,
@@ -34,10 +42,13 @@ export default StyleSheet.create({
     },
 
     text: {
+        width: SIZES.width * .4,
         fontFamily: FONTS.regular,
         fontSize: 13,
         marginBottom: -2,
         color: COLORS.black,
+        marginTop: 3,
+        // flexWrap: 'wrap',
     },
 
     review: {
@@ -58,6 +69,10 @@ export default StyleSheet.create({
         // alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: SIZES.height * .02,
+    },
+
+    top_box: {
+        width: SIZES.width * .7,
     },
 
     price: {
@@ -90,8 +105,9 @@ export default StyleSheet.create({
 
     title1: {
         fontFamily: FONTS.semiBold,
-        fontSize: 16,
+        fontSize: 18,
         color: COLORS.black,
+        marginBottom: SIZES.height * .01,
     },
 
     dot_box: {
@@ -122,6 +138,13 @@ export default StyleSheet.create({
         flexDirection: "row",
         alignItems: 'center',
         // justifyContent: 'space-between',
+    },
+
+    label_row: {
+        width: SIZES.width * .5,
+        flexDirection: "row",
+        alignItems: 'flex-start',
+        marginTop: SIZES.height * .01,
     },
 
     btn_text: {
@@ -206,5 +229,12 @@ export default StyleSheet.create({
     row1: {
         flexDirection: "row",
         alignItems: 'center',
+    },
+    pickup_row: {
+        width: SIZES.width * .9,
+        flexDirection: "row",
+        alignItems: 'flex-start',
+        // flexWrap: 'wrap',
+        marginTop: SIZES.height * .01,
     },
 })

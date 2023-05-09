@@ -145,6 +145,8 @@ android {
         versionName "1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
+        // webview add this line
+        multiDexEnabled true
 
         if (isNewArchitectureEnabled()) {
             // We configure the NDK build only if you decide to opt-in for the New Architecture.
@@ -264,6 +266,9 @@ android {
 }
 
 dependencies {
+    // // webview add line
+    // implementation project(":react-native-webview")
+
   // Stripe Android SDK
    implementation 'com.stripe:stripe-android:20.23.1'
 //   implementation 'com.stripe:stripe-android:20.22.0'

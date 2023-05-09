@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { COLORS, SIZES } from '../../constants';
 import styles from './styles';
 import Button1 from '../../component/atoms/buttons/Button1';
-import Header from '../../component/atoms/Header';
 import Icons from '../../component/atoms/Icons';
 import ImagePicker from 'react-native-image-crop-picker';
 import ProgressBar from '../../component/atoms/progressBar';
@@ -89,9 +88,6 @@ const CarPhotos = ({ navigation, route }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-           {/* header */}
-           <Header />
-           
             <ScrollView
               keyboardShouldPersistTaps={'handled'}
                 showsVerticalScrollIndicator={false}

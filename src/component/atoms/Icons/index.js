@@ -28,11 +28,11 @@ const Icons = ({ name, color, size, style }) => {
                 style={[{ tintColor: color, height: size, width: size }, style]}
                 resizeMode="contain"
             />
-            case 'addPost':
-                return <Image source={icons.addPost}
-                    style={[{ tintColor: color, height: size, width: size }, style]}
-                    resizeMode="contain"
-                />
+        case 'addPost':
+            return <Image source={icons.addPost}
+                style={[{ tintColor: color, height: size, width: size }, style]}
+                resizeMode="contain"
+            />
         case 'edit':
             return <Image source={icons.edit}
                 style={[{ tintColor: color, height: size, width: size }, style]}
@@ -105,6 +105,7 @@ const Icons = ({ name, color, size, style }) => {
                 style={[{ tintColor: color, height: size, width: size }, style]}
                 resizeMode="contain"
             />
+
         case 'fuel':
             return <Image source={icons.fuel}
                 style={[{ tintColor: color, height: size, width: size }, style]}
@@ -147,13 +148,38 @@ const Icons = ({ name, color, size, style }) => {
                 resizeMode="contain"
             />
 
+        case 'delete':
+            return <Image source={icons.trash}
+                style={[{ tintColor: color, height: size, width: size }, style]}
+                resizeMode="contain"
+            />
 
+        case 'insurance':
+            return <Image source={icons.insurance}
+                style={[{ tintColor: color, height: size, width: size }, style]}
+                resizeMode="contain"
+            />
+        case 'code':
+            return <Image source={icons.code}
+                style={[{ tintColor: color, height: size, width: size }, style]}
+                resizeMode="contain"
+            />
+        case 'code1':
+            return <Image source={icons.code1}
+                style={[{ tintColor: color, height: size, width: size }, style]}
+                resizeMode="contain"
+            />
 
 
         // icons
+        case 'checkmark':
+            return <Ionicons style={StyleSheet.create(style)} name="checkmark-circle-outline" size={size} color={color} />
+        case 'carlist':
+            return <Ionicons style={StyleSheet.create(style)} name="car-sport" size={size} color={color} />
         case 'accountcircle':
             return <MaterialCommunityIcons style={StyleSheet.create(style)} name="account-circle-outline" size={size} color={color} />
-
+        case 'up-outline':
+            return <Ionicons style={StyleSheet.create(style)} name="chevron-up-outline" size={size} color={color} />
         case 'down-outline':
             return <Ionicons style={StyleSheet.create(style)} name="chevron-down-outline" size={size} color={color} />
         case 'heart':
@@ -196,6 +222,9 @@ const Icons = ({ name, color, size, style }) => {
             return <Feather style={StyleSheet.create(style)} name="chevron-right" size={size} color={color} />
 
 
+        case 'cancel':
+            return <MaterialCommunityIcons style={StyleSheet.create(style)} name="cancel" size={size} color={color} />
+
         case 'android':
             return <AntDesign style={StyleSheet.create(style)} name="android1" size={size} color={color} />
         case 'bluetooth':
@@ -213,6 +242,25 @@ const Icons = ({ name, color, size, style }) => {
             return <MaterialCommunityIcons style={StyleSheet.create(style)} name="bank" size={size} color={color} />
         case 'wallet1':
             return <FontAwesome5 style={StyleSheet.create(style)} name="wallet" size={size} color={color} />
+        case 'edit1':
+            return <FontAwesome5 style={StyleSheet.create(style)} name="edit" size={size} color={color} />
+        case 'add-location':
+            return <MaterialIcons style={StyleSheet.create(style)} name="add-location" size={size} color={color} />
+        case 'edit-location':
+            return <MaterialIcons style={StyleSheet.create(style)} name="edit-location" size={size} color={color} />
+
+        case 'star-fill':
+            return <FontAwesome style={StyleSheet.create(style)} name="star" size={size} color={color} />
+        case 'star-outline':
+            return <FontAwesome style={StyleSheet.create(style)} name="star-o" size={size} color={color} />
+        case 'twitter-circle':
+            return <Entypo style={StyleSheet.create(style)} name="twitter-with-circle" size={size} color={color} />
+        case 'facebook-circle':
+            return <Entypo style={StyleSheet.create(style)} name="facebook-with-circle" size={size} color={color} />
+        case 'instagram-circle':
+            return <Entypo style={StyleSheet.create(style)} name="instagram-with-circle" size={size} color={color} />
+        case 'youtube-circle':
+            return <Entypo style={StyleSheet.create(style)} name="youtube-with-circle" size={size} color={color} />
 
         default:
             return <MaterialIcons style={StyleSheet.create(style)} name="logout" size={size} color={color} />

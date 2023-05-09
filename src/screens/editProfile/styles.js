@@ -63,15 +63,21 @@ export default StyleSheet.create({
         marginTop: SIZES.height * .05,
     },
 
-    // title: {
-    //     width: SIZES.width * .9,
-    //     fontFamily: FONTS.semiBold,
-    //     fontSize: 24,
-    //     lineHeight: 30,
-    //     color: COLORS.black,
-    //     marginTop: SIZES.height * .15,
-    //     marginBottom: SIZES.height * .05,
-    // },
+    title: {
+        width: SIZES.width * .9,
+        fontFamily: FONTS.semiBold,
+        fontSize: 14,
+        color: COLORS.black,
+    },
+    email: {
+        // width: SIZES.width * .9,
+        fontFamily: FONTS.regular,
+        fontSize: 15,
+        // color: "#BABFD1",
+        color: COLORS.black,
+        marginTop: SIZES.height * .01,
+        marginBottom: SIZES.height * .02,
+    },
 
     btnRow: {
         width: SIZES.width * .9,

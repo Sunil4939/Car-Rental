@@ -163,4 +163,41 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#0F56CC",
     },
+
+
+
+
+
+
+
+    location: {
+        fontFamily: FONTS.medium,
+        fontSize: 15,
+        color: COLORS.black,
+        // marginBottom: -4,
+    },
+
+    location_box: {
+        width: SIZES.width * .45,
+        // alignItems: 'flex-start',
+        alignItems: 'center',
+    },
+    
+    button: {
+        width: SIZES.width * .4,
+        height: SIZES.height * .05,
+        backgroundColor: COLORS.light,
+        borderRadius: 8,
+        marginBottom: SIZES.height * .01,
+        justifyContent: 'center',
+        paddingLeft: SIZES.width * .05,
+    },
+    title2: {
+        fontFamily: FONTS.bold,
+        fontSize: 18,
+        color: COLORS.black, 
+        // marginBottom: -5,
+        marginBottom: SIZES.height * .02,
+    },
+
 })

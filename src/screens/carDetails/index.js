@@ -4,14 +4,12 @@ import { COLORS, SIZES } from '../../constants';
 import styles from './styles';
 import InputWithLabel from '../../component/atoms/inputs/InputWithLabel';
 import Button1 from '../../component/atoms/buttons/Button1';
-import Header from '../../component/atoms/Header';
 import CheckBox from '@react-native-community/checkbox';
 import ProgressBar from '../../component/atoms/progressBar';
 import Icons from '../../component/atoms/Icons';
 import { connect } from 'react-redux';
 import { GetFeaturesApi } from '../../redux/actions/vendorGetApi';
 import { useEffect } from 'react';
-import Loading from '../../component/atoms/Loading';
 import { RNToasty } from 'react-native-toasty';
 import { SaveVendorDataApi } from '../../redux/actions/vendorRegistration';
 import Loading1 from '../../component/atoms/Loading/Loading1';
@@ -55,17 +53,9 @@ const CarDetails = ({ navigation, route, loading, SaveVendorDataApi, features, G
         // console.log("arrrrr", arr.indexOf(value))
         if (arr.includes(value)) {
             arr.splice(select.indexOf(value), 1)
-            // handleChange(`features${select.indexOf(value)}`, null)
         } else {
-            // handleChange(`features${select.length}`, value)
             arr.push(value)
-            // postData.push({
-            //     item: {
-            //         product: item.product._id,
-            //         color: item.product.color[0],
-            //         quantity: item.quantity
-            //     }
-            // })
+           
         }
         handleChange("features", arr)
         setSelect(arr)
@@ -86,10 +76,6 @@ const CarDetails = ({ navigation, route, loading, SaveVendorDataApi, features, G
                         backgroundColor={COLORS.light}
                         barStyle="dark-content"
                     />
-
-                    {/* header */}
-                    <Header />
-
                     <ScrollView keyboardShouldPersistTaps={'handled'}
                         showsVerticalScrollIndicator={false}
                     >

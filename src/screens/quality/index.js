@@ -2,7 +2,6 @@ import { View, Text, StatusBar, TouchableOpacity, Image, } from 'react-native'
 import React from 'react'
 import { COLORS, images, SIZES } from '../../constants';
 import styles from './styles';
-import Header from '../../component/atoms/Header';
 import Button1 from '../../component/atoms/buttons/Button1';
 import ProgressBar from '../../component/atoms/progressBar';
 
@@ -15,9 +14,6 @@ const Quality = ({ navigation, route }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-            {/* header */}
-            <Header />
-
             {/* progress */}
             <ProgressBar
                 progress={.91}

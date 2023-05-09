@@ -5,7 +5,6 @@ import styles from './styles';
 import Button1 from '../../component/atoms/buttons/Button1';
 import Icons from '../../component/atoms/Icons';
 import ImagePicker from 'react-native-image-crop-picker';
-import Header from '../../component/atoms/Header';
 import ProgressBar from '../../component/atoms/progressBar';
 import { RNToasty } from 'react-native-toasty';
 import { SaveVendorDataApi } from '../../redux/actions/vendorRegistration';
@@ -66,9 +65,6 @@ const CarProfile = ({ navigation, route, }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-           {/* header */}
-           <Header />
-           
             {/* progress */}
             <ProgressBar
                 progress={.27}

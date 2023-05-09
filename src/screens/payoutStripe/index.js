@@ -2,7 +2,6 @@ import { View, Text, StatusBar, TouchableOpacity, } from 'react-native'
 import React from 'react'
 import { COLORS, SIZES } from '../../constants';
 import styles from './styles';
-import Header from '../../component/atoms/Header';
 import Button1 from '../../component/atoms/buttons/Button1';
 import ProgressBar from '../../component/atoms/progressBar';
 
@@ -15,9 +14,6 @@ const PayoutStripe = ({ navigation, route }) => {
                 backgroundColor={COLORS.light}
                 barStyle="dark-content"
             />
-            {/* header */}
-            <Header />
-
             {/* progress */}
             <ProgressBar
                 progress={.82}
@@ -44,7 +40,9 @@ const PayoutStripe = ({ navigation, route }) => {
                             and account information.</Text>
                         <Text style={styles.text1}>Once your account is verified, you’ll provide
                             your direct deposit information.</Text>
-                        <TouchableOpacity style={styles.btn}>
+                        <TouchableOpacity style={styles.btn}
+                         onPress={() => navigation.navigate("SetUpAccount", { data: route.params.data })}
+                        >
                             <Text style={[styles.blueText, { position: 'absolute', left: 0 }]}>SET UP ACCOUNT</Text>
                         </TouchableOpacity>
                     </View>
@@ -59,9 +57,7 @@ const PayoutStripe = ({ navigation, route }) => {
                         onPress={() => navigation.navigate("SetUpAccount", { data: route.params.data })}
                     >Next</Button1>
                 </View>
-
             </View>
-
 
         </View>
     )

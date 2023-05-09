@@ -4,9 +4,9 @@ import Icons from '../Icons';
 import { COLORS, FONTS, SIZES, images } from '../../../constants';
 
 
-const AllCar = ({ source, onPress, price, start, carName, }) => {
+const AllCar = ({ source, style, onPress, price, start, carName, }) => {
     return (
-        <TouchableOpacity style={styles.box} onPress={onPress}>
+        <TouchableOpacity style={{...styles.box, ...style}} onPress={onPress}>
             <View style={styles.priceRow}>
                 <View style={styles.imageBox}>
                     <Image source={source} style={styles.image} resizeMode='contain' />
@@ -27,6 +27,7 @@ AllCar.defaultProps = {
     price: "$200.00",
     carName: "Mazda 3",
     start: "Starting From",
+    style: null,
 }
 
 export default AllCar;

@@ -15,10 +15,11 @@ import { http2 } from '../../../services/api';
 import findAgoDays from '../../../services/findAgoDays';
 
 
-const SwipeCarBox = ({ source, brandName, buildYear, deletePress, editPress, createdAt, isActive }) => {
+const SwipeCarBox = ({ source,onPress, brandName, buildYear, deletePress, editPress, createdAt, isActive }) => {
     // console.log("data: ", data)
     return (
         <TouchableOpacity style={styles.frontBox}
+        onPress={onPress}
         >
             <View style={styles.box}>
                 <View style={styles.row}>
@@ -34,7 +35,7 @@ const SwipeCarBox = ({ source, brandName, buildYear, deletePress, editPress, cre
                             </View>
                         </View>
                     </View>
-                    <View style={styles.toggleBox}>
+                    {/* <View style={styles.toggleBox}>
                         <SwitchToggle
                             // switchOn={toggle.includes(data.item.id)}
                             // onPress={() => handleArrayChange(data.item.id)}
@@ -47,8 +48,7 @@ const SwipeCarBox = ({ source, brandName, buildYear, deletePress, editPress, cre
                             circleStyle={styles.toggleCircleStyle}
                         />
                         <Text style={styles.active}>{isActive ? "Active" : "Inactive"}</Text>
-                        {/* <Text style={styles.active}>{toggle.includes(data.item.id) ? "Active" : "Inactive"}</Text> */}
-                    </View>
+                    </View> */}
                 </View>
                 <View style={{alignItems: 'flex-end', width: SIZES.width * .9}}>
                 <View style={styles.btnRow}>
@@ -122,7 +122,8 @@ SwipeCarBox.defaultProps = {
     createdAt: "5day ago",
     isActive: false,
     deletePress: null,
-    editPress: null
+    editPress: null,
+    onPress: null,
 }
 
 // HiddenSwipeBox.defaultProps = {

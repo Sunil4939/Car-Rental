@@ -18,6 +18,7 @@ const InputWithLabel1 = ({
     label,
     labelStyle,
     required,
+    dropDownValue,
     inputStyle }) => {
     return (
         <View
@@ -51,8 +52,9 @@ const InputWithLabel1 = ({
                         dropdownStyle={styles.dropDown}
                         buttonStyle={styles.dropDownBtnStyle}
                         buttonTextStyle={styles.dropDownTextStyle}
-                        data={data} 
-                        defaultValueByIndex={0}
+                        data={data}      
+                        defaultValueByIndex={dropDownValue}
+                        // defaultValueByIndex={dropDownValue ? data.indexOf(value) : 0}
                         onSelect={(selectedItem, index) => {
                             console.log(selectedItem, index)
                             onChangeValue && onChangeValue(selectedItem, index)
@@ -84,6 +86,7 @@ InputWithLabel1.defaultProps = {
     required: true,
     rightText: null,
     onChangeValue: null,
+    dropDownValue: 0
 }
 
 export default InputWithLabel1;

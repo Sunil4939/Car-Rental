@@ -5,18 +5,6 @@ import BottomTab from '../navigation/bottomTab';
 import { connect, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AUTH_TOKEN } from '../redux/types';
-import Terms from '../screens/terms';
-import YourCar from '../screens/yourCar';
-import CarProfile from '../screens/carProfile';
-import CarDetails from '../screens/carDetails';
-import Goals from '../screens/goals';
-import CarPhotos from '../screens/carPhotos';
-import PayoutStripe from '../screens/payoutStripe';
-import DriverLicense from '../screens/driverLicense';
-import CarAvailability from '../screens/carAvailability';
-import SetUpAccount from '../screens/setUpAccount';
-import Quality from '../screens/quality';
-import SubmitList from '../screens/submitList';
 import Login from '../screens/login';
 import SignUp from '../screens/signUp';
 import ResetPassword from '../screens/resetPassword';
@@ -25,6 +13,7 @@ import Loading from '../component/atoms/Loading'
 import { LogBox } from 'react-native';
 import { GetCarListApi } from '../redux/actions/vendorRegistration';
 import { GetUserDataApi } from '../redux/actions/authAction';
+import ForgetPassword from '../screens/ForgetPassword';
 
 
 
@@ -70,7 +59,7 @@ const Root = ({ token, userData, GetUserDataApi, }) => {
                         headerShown: false,
                         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
                     })}>
-                        <Stack.Screen
+                    <Stack.Screen
                         name="BottomTab"
                         component={BottomTab}
                     />
@@ -78,6 +67,7 @@ const Root = ({ token, userData, GetUserDataApi, }) => {
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="SignUp" component={SignUp} />
                     <Stack.Screen name="ResetPassword" component={ResetPassword} />
+                    <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
                 </Stack.Navigator>
             }
         </>

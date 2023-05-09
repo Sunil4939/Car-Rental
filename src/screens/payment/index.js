@@ -247,7 +247,7 @@ import Button1 from '../../component/atoms/buttons/Button1';
 import { COLORS, SIZES } from '../../constants';
 import styles from './styles'
 import Loading1 from '../../component/atoms/Loading/Loading1'
-import { CreateSessionId, UpdateBookingStatus } from '../../redux/actions/bookingAction';
+import { CreatePaymentApi, CreateSessionId, UpdateBookingStatus } from '../../redux/actions/bookingAction';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icons from '../../component/atoms/Icons';
 
@@ -255,16 +255,17 @@ import Icons from '../../component/atoms/Icons';
 
 // onPress={() => { setVisible(!visible), CreateSessionId(postData, {amount: (Number(data.price) + Number(data.additional_price))}, navigation)}}
 // onPress={() => navigation.navigate("CheckOut", { data: postData, carData: singleCarData })}
-const PaymentPage = ({ navigation, CreateSessionId, createCustomer,UpdateBookingStatus, customerData, route, paymentIntent, loading }) => {
+const Payment = ({ navigation, CreatePaymentApi, createCustomer, UpdateBookingStatus, customerData, route, paymentIntent, loading }) => {
     const [paymentStatus, setPaymentStatus] = useState(null);
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
     const amount = route.params && route.params.amount
-    const  car_booking_id = route.params && route.params.car_booking_id
+    const car_booking_id = route.params && route.params.car_booking_id
 
+    // console.log("payment intent secret key : ", paymentIntent && paymentIntent.id)
 
-    // console.log("payment intent secret key : ", paymentIntent && paymentIntent.client_secret)
-    const initializePaymentSheet = async () => { 
+    // console.log("payment intent secret key : ", paymentIntent && paymentIntent.id, paymentIntent && paymentIntent.client_secret)
+    const initializePaymentSheet = async () => {
         const result = await initPaymentSheet({
             merchantDisplayName: "Example, Inc.",
             paymentIntentClientSecret: paymentIntent && paymentIntent.client_secret,
@@ -289,8 +290,14 @@ const PaymentPage = ({ navigation, CreateSessionId, createCustomer,UpdateBooking
             setPaymentStatus('failed');
             navigation.navigate("PaymentFailed")
         } else {
-            navigation.navigate("PaymentSuccess", { amount: amount })
-            UpdateBookingStatus(car_booking_id,paymentIntent && paymentIntent.id, navigation)
+            navigation.navigate("PaymentSuccess", { routeName: route.params && route.params.routeName, amount: amount})
+            // navigation.navigate("PaymentSuccess", { amount: amount })
+            // UpdateBookingStatus(car_booking_id, paymentIntent && paymentIntent.id, navigation)
+            CreatePaymentApi({
+                car_booking_id: car_booking_id,
+                payment_intent: paymentIntent && paymentIntent.id,
+                currency: "inr"
+            })
             setPaymentStatus('succeeded');
         }
         //  else if (result.paymentStatus === 'succeeded') {
@@ -368,18 +375,6 @@ const PaymentPage = ({ navigation, CreateSessionId, createCustomer,UpdateBooking
                         barStyle="dark-content"
                     />
 
-                    <View style={styles.header}>
-                        <View style={styles.headerRow}>
-                            <TouchableOpacity
-                                style={styles.backBtn}
-                                onPress={() => navigation.goBack()}
-                            >
-                                <Icons name={"back"} size={20} color={COLORS.black} />
-                            </TouchableOpacity>
-                            <Text style={styles.title}>Payment</Text>
-                        </View>
-                    </View>
-
                     <View style={styles.btn_box}>
                         <Button1 backgroundColor={"#000000"}
                             textColor={COLORS.white}
@@ -407,6 +402,7 @@ const mapDispatchToProps = {
     createCustomer,
     confirmPaymentIntent,
     UpdateBookingStatus,
+    CreatePaymentApi,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentPage)
+export default connect(mapStateToProps, mapDispatchToProps)(Payment)

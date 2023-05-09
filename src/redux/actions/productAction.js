@@ -1,12 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RNToasty } from "react-native-toasty";
 import { FILTER, FILTER_DATA, LOADING, SINGLE_CAR_DATA, } from "../types";
 import http from "../../services/api";
-import RazorpayCheckout from "react-native-razorpay";
 import objectToFormData from "../../services/objectToFormData";
-import razorPay from "../../services/razorPay";
 import { createCustomer } from "./paymentAction";
-import { GetAllNotification } from "./notificationAction";
+import { AllCarListApi } from "./homeAction";
 
 export const FilterApi = (filterUrl, postData) => async dispatch => {
     dispatch({
@@ -175,7 +172,7 @@ export const SingleCarDataApi = (carId) => async dispatch => {
 };
 
 
-export const StoreCarBookingApi = (postData,amount, currency, navigation) => async dispatch => {
+export const StoreCarBookingApi = (postData,amount, currency, navigation, routeName) => async dispatch => {
     dispatch({
         type: LOADING,
         payload: true,
@@ -195,16 +192,17 @@ export const StoreCarBookingApi = (postData,amount, currency, navigation) => asy
         .then(async response => {
             if (response.data.response) {
                 dispatch(createCustomer(amount, currency))
-                navigation && navigation.navigate("Payment", {car_booking_id:response.data.data.id,  amount:amount})
+                navigation.navigate("Payment", { routeName: routeName,car_booking_id:response.data.data.id, amount: amount})
+                // navigation && navigation.navigate("Payment", {car_booking_id:response.data.data.id,  amount:amount})
                 // dispatch(GetAllNotification())
                 dispatch({
                     type: LOADING,
                     payload: false
                 })
-                RNToasty.Success({
-                    title: response.data.message,
-                    duration: 2,
-                });
+                // RNToasty.Success({
+                //     title: response.data.message,
+                //     duration: 2,
+                // });
 
             } else {
                 dispatch({
@@ -223,10 +221,10 @@ export const StoreCarBookingApi = (postData,amount, currency, navigation) => asy
                 type: LOADING,
                 payload: false
             })
-            // RNToasty.Error({
-            //     title: error.response.data.message,
-            //     duration: 2,
-            // });
+            RNToasty.Error({
+                title: error.response.data.message,
+                duration: 2,
+            });
         })
 };
 
@@ -325,5 +323,102 @@ export const DeleteCarImageApi = (carId) => async dispatch => {
             //     });
             // }
 
+        })
+};
+
+export const AddReviewApi = (postData) => async dispatch => {
+    dispatch({
+        type: LOADING,
+        payload: true,
+    });
+    
+    postData = await objectToFormData(postData)
+
+    http.post(`add_review`, postData, {
+        enctype: "multipart/form-data",
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Content-Disposition": "form-data",
+        },
+    })
+        .then(async response => {
+            if (response.data.response) {
+                dispatch(SingleCarDataApi())
+                // dispatch(AllCarListApi())
+                // dispatch({
+                //     type: LOADING,
+                //     payload: false
+                // })
+                RNToasty.Success({
+                    title: response.data.message,
+                    duration: 2,
+                });
+
+            } else {
+                // dispatch({
+                //     type: LOADING,
+                //     payload: false
+                // })
+                // RNToasty.Info({
+                //     title: response.data.data,
+                //     duration: 2,
+                // });
+            }
+        })
+        .catch(error => {
+            console.log("add review error : ", error)
+            dispatch({
+                type: LOADING,
+                payload: false
+            })
+            RNToasty.Error({
+                title: error.response.data.data,
+                duration: 2,
+            });
+        })
+};
+
+export const DeleteReview = (reviewId) => async dispatch => {
+    dispatch({
+        type: LOADING,
+        payload: true,
+    });
+
+
+    http.post(`delete_review?id=${reviewId}`)
+        .then(async response => {
+            if (response.data.response) {
+                dispatch(SingleCarDataApi())
+                // dispatch(AllCarListApi())
+                // dispatch({
+                //     type: LOADING,
+                //     payload: false
+                // })
+                RNToasty.Success({
+                    title: response.data.message,
+                    duration: 2,
+                });
+
+            } else {
+                // dispatch({
+                //     type: LOADING,
+                //     payload: false
+                // })
+                RNToasty.Info({
+                    title: response.data.message,
+                    duration: 2,
+                });
+            }
+        })
+        .catch(error => {
+            console.log("delete review error : ", error)
+            dispatch({
+                type: LOADING,
+                payload: false
+            })
+            RNToasty.Error({
+                title: error.response.data.message,
+                duration: 2,
+            });
         })
 };

@@ -45,6 +45,7 @@ export default StyleSheet.create({
         position: 'absolute',
         top: 0,
         right: 0,
+        zIndex: 5,
     },
 
     del: {

@@ -141,4 +141,54 @@ export default StyleSheet.create({
         lineHeight: 24,
         // color: "#777777",
     },
+
+
+
+   
+    modal: {
+        backgroundColor: COLORS.white,
+        borderRadius: 10,
+        paddingVertical: SIZES.height * .04,
+        alignItems: 'center',
+    },
+    btnRow: {
+        width: SIZES.width * .8,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: SIZES.height * .02,
+    },
+    btn: {
+        width: SIZES.width * .3,
+        height: SIZES.height * .05,
+    },
+    input: {
+        width: SIZES.width * .8,
+        // height: SIZES.height * .06,
+        alignItems: "center",
+        justifyContent: 'center',
+        fontFamily: FONTS.medium,
+        fontSize: 14,
+        color: COLORS.black,
+        borderWidth: 1,
+        borderColor: COLORS.black,
+        paddingVertical: SIZES.height * .01,
+        borderRadius: 8,
+        paddingLeft: SIZES.width * .05,
+        marginBottom: SIZES.height * .02,
+    },
+
+    label1: {
+        fontFamily: FONTS.medium,
+        fontSize: 14,
+        color: COLORS.black,
+        marginBottom: 5,
+    },
+    title: {
+        width: SIZES.width * .8,
+        fontFamily: FONTS.semiBold,
+        fontSize: 18,
+        color: COLORS.black,
+        marginBottom: SIZES.height * .02,
+    },
 })
